@@ -6,8 +6,29 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel,
 import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/hover-card";
 import { Separator } from "@/components/ui/separator";
 import { DotsHorizontalIcon } from "@radix-ui/react-icons";
+import { Pin } from "lucide-react";
+import { useState } from "react";
 
 export const columns_company = [
+    {
+        id: "select",
+        header: ({ table }: any) => {
+            return <></>
+        },
+        cell: ({ row, table }: any) => {
+            return <Checkbox
+                checked={row.getIsSelected()}
+                onCheckedChange={(value) => {
+                    row.toggleSelected(!!value);
+
+                }}
+                disabled={Object.keys(table.getState().rowSelection).length >= 3 && !row.getIsSelected()}
+                aria-label="Select row"
+            />
+        },
+        enableSorting: false,
+        enableHiding: false,
+    },
     {
         accessorKey: "nama_perusahaan",
         header: ({ column }: any) => (
@@ -16,7 +37,14 @@ export const columns_company = [
         cell: ({ row }: any) => (
             <HoverCard>
                 <HoverCardTrigger asChild>
-                    <span className="text-primary cursor-pointer underline">{row.getValue("nama_perusahaan")}</span>
+                    <span className="text-primary cursor-pointer underline">
+                        <div className="flex gap-2">
+                            {
+                                row.getIsSelected() === true ? <Pin className="text-muted-foreground rotate-45 self-center" size={16} /> : ""
+                            }
+                            <p>{row.getValue("nama_perusahaan")}</p>
+                        </div>
+                    </span>
                 </HoverCardTrigger>
                 <HoverCardContent>
                     <div className="flex flex-col gap-1">
@@ -61,6 +89,7 @@ export const columns_company = [
                 <DropdownMenuContent>
                     <DropdownMenuLabel>Aksi</DropdownMenuLabel>
                     <DropdownMenuSeparator />
+                    <DropdownMenuItem>Pin</DropdownMenuItem>
                     <DropdownMenuItem>Arsip</DropdownMenuItem>
                     <DropdownMenuItem>Edit</DropdownMenuItem>
                     <DropdownMenuItem>Hapus</DropdownMenuItem>

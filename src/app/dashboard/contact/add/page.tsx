@@ -1,3 +1,4 @@
+"use client"
 import InnerContent from "@/components/InnerContent";
 import { Card, CardContent } from "@/components/ui/card";
 import {
@@ -26,24 +27,25 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel,
 import { Button } from "@/components/ui/button";
 import { DotsHorizontalIcon } from "@radix-ui/react-icons";
 import Link from "next/link";
+import Title from "@/components/Title";
+import { Checkbox } from "@/components/ui/checkbox";
+import {
+    Collapsible,
+    CollapsibleContent,
+    CollapsibleTrigger,
+} from "@/components/ui/collapsible"
+import { useState } from "react";
 
 
 export default function AddContactPage() {
+    const [open, setOpen] = useState<boolean>(false);
+    const [show_penagihan, setShowPenagihan] = useState<boolean>(false);
+
     return (
         <>
             <InnerContent>
                 <div className="mb-20">
-                    <Card className="mb-5">
-                        <CardContent className="py-3">
-                            <div className="flex justify-between">
-                                <div>
-                                    <p className="text-sm text-muted-foreground">Kontak</p>
-                                    <h1 className="font-semibold text-2xl">Buat Kontak</h1>
-                                </div>
-                            </div>
-                        </CardContent>
-                    </Card>
-
+                    <Title title="Buat Kontak" subtitle="Kontak"></Title>
                     <Card>
                         <CardContent className="py-3">
                             <Accordion type="multiple" >
@@ -81,17 +83,56 @@ export default function AddContactPage() {
                                                         </div>
                                                     </div>
                                                 </Label>
-                                                <ToggleGroup type="multiple" className="justify-start" variant={'outline'}>
+                                                <div className="flex 2xl:flex-nowrap xl:flex-nowrap flex-wrap gap-3">
+                                                    <div className="flex items-center space-x-2">
+                                                        <Checkbox id="pelanggan" />
+                                                        <label
+                                                            htmlFor="pelanggan"
+                                                            className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                                                        >
+                                                            Pelanggan
+                                                        </label>
+                                                    </div>
+                                                    <div className="flex items-center space-x-2">
+                                                        <Checkbox id="supplier" />
+                                                        <label
+                                                            htmlFor="supplier"
+                                                            className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                                                        >
+                                                            Supplier
+                                                        </label>
+                                                    </div>
+                                                    <div className="flex items-center space-x-2">
+                                                        <Checkbox id="karyawan" />
+                                                        <label
+                                                            htmlFor="karyawan"
+                                                            className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                                                        >
+                                                            Karyawan
+                                                        </label>
+                                                    </div>
+                                                    <div className="flex items-center space-x-2">
+                                                        <Checkbox id="lainnya" />
+                                                        <label
+                                                            htmlFor="lainnya"
+                                                            className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                                                        >
+                                                            Lainnya
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                {/* <ToggleGroup type="multiple" className="justify-start 2xl:flex-nowrap xl:flex-nowrap flex-wrap" variant={'outline'}>
                                                     <ToggleGroupItem value="Pelanggan" className="data-[state=on]:bg-primary data-[state=on]:text-white">Pelanggan</ToggleGroupItem>
                                                     <ToggleGroupItem value="Supplier" className="data-[state=on]:bg-primary data-[state=on]:text-white">Supplier</ToggleGroupItem>
                                                     <ToggleGroupItem value="Karyawan" className="data-[state=on]:bg-primary data-[state=on]:text-white">Karyawan</ToggleGroupItem>
                                                     <ToggleGroupItem value="Lainnya" className="data-[state=on]:bg-primary data-[state=on]:text-white">Lainnya</ToggleGroupItem>
-                                                </ToggleGroup>
+                                                </ToggleGroup> */}
                                             </div>
                                             <div className="flex flex-col gap-2">
                                                 <Label>Grup Kontak</Label>
                                                 <ComboBox select={[]} placeholder="Pilih grup kontak..." search="Cari grup kontak..." name="grup" />
                                             </div>
+
                                         </div>
                                     </AccordionContent>
                                 </AccordionItem>
@@ -108,10 +149,10 @@ export default function AddContactPage() {
                                         <div className="flex flex-col gap-5 mt-1">
                                             <div className="flex flex-col gap-2">
                                                 <Label>Nama lengkap</Label>
-                                                <div className="flex gap-3">
-                                                    <div>
+                                                <div className="flex 2xl:flex-nowrap xl:flex-nowrap flex-wrap gap-3">
+                                                    <div className="w-full">
                                                         <Select>
-                                                            <SelectTrigger className="w-[180px]">
+                                                            <SelectTrigger className="w-full">
                                                                 <SelectValue placeholder="Panggilan" />
                                                             </SelectTrigger>
                                                             <SelectContent>
@@ -121,7 +162,7 @@ export default function AddContactPage() {
                                                             </SelectContent>
                                                         </Select>
                                                     </div>
-                                                    <div className="grid grid-cols-3 gap-3">
+                                                    <div className="grid 2xl:grid-cols-3 xl:grid-cols-3 md:grid-cols-3 grid-cols-1 gap-3 w-full">
                                                         <Input placeholder="Nama awal" />
                                                         <Input placeholder="Nama tengah" />
                                                         <Input placeholder="Nama akhir" />
@@ -130,11 +171,11 @@ export default function AddContactPage() {
                                                 </div>
                                             </div>
                                             <div className="flex flex-col gap-2">
-                                                <div className="flex gap-3">
-                                                    <div className="flex flex-col gap-2">
+                                                <div className="flex 2xl:flex-nowrap xl:flex-nowrap flex-wrap gap-3">
+                                                    <div className="flex flex-col gap-2 w-full">
                                                         <Label>Identitas</Label>
                                                         <Select>
-                                                            <SelectTrigger className="w-[180px]">
+                                                            <SelectTrigger className="w-full">
                                                                 <SelectValue placeholder="Pilih" />
                                                             </SelectTrigger>
                                                             <SelectContent>
@@ -144,7 +185,7 @@ export default function AddContactPage() {
                                                             </SelectContent>
                                                         </Select>
                                                     </div>
-                                                    <div className="flex flex-col flex-1 gap-2">
+                                                    <div className="flex flex-col flex-1 gap-2 w-full">
                                                         <Label>Nomor identitas</Label>
                                                         <Input />
                                                     </div>
@@ -157,7 +198,11 @@ export default function AddContactPage() {
                                                 </div>
                                                 <small className="text-muted-foreground">Anda dapat memilih lebih dari 1 email</small>
                                             </div>
-                                            <div className="grid grid-cols-2 gap-5">
+                                            <div className="flex flex-col gap-2">
+                                                <Label>Nama Perusahaan</Label>
+                                                <Input />
+                                            </div>
+                                            <div className="grid 2xl:grid-cols-2 xl:grid-cols-2 grid-cols-1 gap-5">
                                                 <div className="flex flex-col gap-2">
                                                     <Label>Nomor handphone</Label>
                                                     <Input />
@@ -167,7 +212,7 @@ export default function AddContactPage() {
                                                     <Input />
                                                 </div>
                                             </div>
-                                            <div className="grid grid-cols-2 gap-5">
+                                            <div className="grid 2xl:grid-cols-2 xl:grid-cols-2 grid-cols-1 gap-5">
                                                 <div className="flex flex-col gap-2">
                                                     <Label>Fax</Label>
                                                     <Input />
@@ -181,15 +226,35 @@ export default function AddContactPage() {
                                                 <Label>Alamat penagihan</Label>
                                                 <Textarea placeholder="Contoh: Jalan Indonesia Block C No.12" />
                                                 <div className="flex items-center space-x-2">
-                                                    <Switch id="alamat-penagih" />
+                                                    <Switch id="alamat-penagih" checked={open} onCheckedChange={setOpen} />
                                                     <Label htmlFor="alamat-penagih">Tambah rincian</Label>
                                                 </div>
+                                                <Collapsible open={open} onOpenChange={setOpen} className="pt-3 pb-5">
+                                                    <CollapsibleContent>
+                                                        <div className="flex flex-col gap-5">
+                                                            <div className="grid 2xl:grid-cols-4 xl:grid-cols-4 md:grid-cols-2 grid-cols-1 gap-4">
+                                                                <Input placeholder="No." />
+                                                                <Input placeholder="RT" />
+                                                                <Input placeholder="RW" />
+                                                                <Input placeholder="Kode pos" />
+                                                            </div>
+                                                            <div className="grid 2xl:grid-cols-2 xl:grid-cols-2 md:grid-cols-2 grid-cols-1 gap-4">
+                                                                <Input placeholder="Kelurahan" />
+                                                                <Input placeholder="Kecamatan" />
+                                                            </div>
+                                                            <div className="grid 2xl:grid-cols-2 xl:grid-cols-2 md:grid-cols-2 grid-cols-1 gap-4">
+                                                                <Input placeholder="Kabupaten/Kota" />
+                                                                <Input placeholder="Provinsi" />
+                                                            </div>
+                                                        </div>
+                                                    </CollapsibleContent>
+                                                </Collapsible>
                                             </div>
                                             <div className="flex flex-col gap-2">
                                                 <Label>Alamat penagihan</Label>
-                                                <Textarea placeholder="Contoh: Jalan Indonesia Block C No.12" />
+                                                <Textarea placeholder="Contoh: Jalan Indonesia Block C No.12" style={{ display: show_penagihan ? "none" : "block" }} />
                                                 <div className="flex items-center space-x-2">
-                                                    <Switch id="alamat-penagih" />
+                                                    <Switch id="alamat-penagih" checked={show_penagihan} onCheckedChange={setShowPenagihan} />
                                                     <Label htmlFor="alamat-penagih">Sama dengan Alamat penagihan</Label>
                                                 </div>
                                             </div>
@@ -214,7 +279,7 @@ export default function AddContactPage() {
                                             <div className="text-end">
                                                 <Button>Tambah Akun Bank</Button>
                                             </div>
-                                            <div>
+                                            <div className="overflow-y-auto">
                                                 <Table>
                                                     <TableHeader className="bg-primary">
                                                         <TableRow>
@@ -265,7 +330,7 @@ export default function AddContactPage() {
                                     </AccordionTrigger>
                                     <AccordionContent className="px-1">
                                         <div className="flex flex-col gap-5 mt-1">
-                                            <div className="grid grid-cols-2 gap-5">
+                                            <div className="grid 2xl:grid-cols-2 xl:grid-cols-2 grid-cols-1 gap-5">
                                                 <div className="flex flex-col gap-2">
                                                     <Label>Akun piutang</Label>
                                                     <ComboBox select={[]} placeholder="Pilih akun piutang" search="Cari akun piutang" name="akun piutang" />

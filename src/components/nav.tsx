@@ -7,7 +7,8 @@ import { cn } from "@/lib/utils"
 import { Tooltip, TooltipContent, TooltipTrigger } from "./ui/tooltip"
 import { buttonVariants } from "./ui/button"
 import { usePathname } from "next/navigation";
-import { useEffect } from "react"
+import { Dispatch, useEffect } from "react"
+import { SetStateAction } from "jotai"
 
 interface NavProps {
     isCollapsed: boolean
@@ -16,10 +17,12 @@ interface NavProps {
         label?: string
         icon: LucideIcon
         href: string
-    }[]
+    }[],
+    open?: boolean | null | undefined,
+    setOpen?: any
 }
 
-export function Nav({ links, isCollapsed }: NavProps) {
+export function Nav({ links, isCollapsed, setOpen, open }: NavProps) {
     const pathname = usePathname();
     return (
         <div
@@ -38,6 +41,11 @@ export function Nav({ links, isCollapsed }: NavProps) {
                                         "h-9 w-9",
                                         pathname === link.href && "dark:bg-muted dark:text-muted-foreground dark:hover:bg-muted dark:hover:text-white"
                                     )}
+                                    onClick={() => {
+                                        if (open === true) {
+                                            setOpen(false);
+                                        }
+                                    }}
                                 >
                                     <link.icon className="h-4 w-4" />
                                     <span className="sr-only">{link.title}</span>
@@ -61,6 +69,11 @@ export function Nav({ links, isCollapsed }: NavProps) {
                                 pathname === link.href && "dark:bg-muted dark:text-white dark:hover:bg-muted dark:hover:text-white",
                                 "justify-start"
                             )}
+                            onClick={() => {
+                                if (open === true) {
+                                    setOpen(false);
+                                }
+                            }}
                         >
                             <link.icon className="mr-2 h-4 w-4" />
                             {link.title}

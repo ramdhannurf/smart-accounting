@@ -2,6 +2,7 @@ import { DrawerDialog } from "@/components/Dialog";
 import DropdownButton from "@/components/DropdownButton";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
@@ -19,64 +20,156 @@ export default function ModalExport({ open, setOpen }: { open: boolean, setOpen:
                 <Card>
                     <CardContent className="py-4">
                         <div className="grid grid-cols-2 gap-5">
-                            <div className="flex flex-col gap-3">
-                                <Toggle aria-label="Toggle italic" className="data-[state=on]:bg-primary data-[state=on]:text-white justify-start" variant={'outline'}>
-                                    Info Kontak
-                                </Toggle>
+                            <div className="flex flex-col gap-5">
+                                <div className="flex items-center space-x-2">
+                                    <Checkbox id="info_kontak" />
+                                    <label
+                                        htmlFor="info_kontak"
+                                        className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                                    >
+                                        Info Kontak
+                                    </label>
+                                </div>
                                 <Separator />
-                                <Toggle aria-label="Toggle italic" className="data-[state=on]:bg-primary data-[state=on]:text-white justify-start" variant={'outline'} disabled>
-                                    Nama Panggilan
-                                </Toggle>
-                                <Toggle aria-label="Toggle italic" className="data-[state=on]:bg-primary data-[state=on]:text-white justify-start" variant={'outline'} disabled>
-                                    Tipe
-                                </Toggle>
-                                <Toggle aria-label="Toggle italic" className="data-[state=on]:bg-primary data-[state=on]:text-white justify-start" variant={'outline'}>
-                                    Grup
-                                </Toggle>
-                                <Toggle aria-label="Toggle italic" className="data-[state=on]:bg-primary data-[state=on]:text-white justify-start" variant={'outline'}>
-                                    Nama Lengkap
-                                </Toggle>
-                                <Toggle aria-label="Toggle italic" className="data-[state=on]:bg-primary data-[state=on]:text-white justify-start" variant={'outline'}>
-                                    Email
-                                </Toggle>
-                                <Toggle aria-label="Toggle italic" className="data-[state=on]:bg-primary data-[state=on]:text-white justify-start" variant={'outline'}>
-                                    No. Handphone
-                                </Toggle>
-                                <Toggle aria-label="Toggle italic" className="data-[state=on]:bg-primary data-[state=on]:text-white justify-start" variant={'outline'}>
-                                    No. Telepon
-                                </Toggle>
-                                <Toggle aria-label="Toggle italic" className="data-[state=on]:bg-primary data-[state=on]:text-white justify-start" variant={'outline'}>
-                                    Fax
-                                </Toggle>
+                                <div className="flex items-center space-x-2">
+                                    <Checkbox id="nama_panggilan" disabled />
+                                    <label
+                                        htmlFor="nama_panggilan"
+                                        className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                                    >
+                                        Nama Panggilan
+                                    </label>
+                                </div>
+                                <div className="flex items-center space-x-2">
+                                    <Checkbox id="tipe" disabled />
+                                    <label
+                                        htmlFor="tipe"
+                                        className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                                    >
+                                        Tipe
+                                    </label>
+                                </div>
+                                <div className="flex items-center space-x-2">
+                                    <Checkbox id="Nama Lengkap" />
+                                    <label
+                                        htmlFor="Nama Lengkap"
+                                        className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                                    >
+                                        Nama Lengkap
+                                    </label>
+                                </div>
+                                <div className="flex items-center space-x-2">
+                                    <Checkbox id="email" />
+                                    <label
+                                        htmlFor="email"
+                                        className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                                    >
+                                        Email
+                                    </label>
+                                </div>
+                                <div className="flex items-center space-x-2">
+                                    <Checkbox id="No. Handphone" />
+                                    <label
+                                        htmlFor="No. Handphone"
+                                        className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                                    >
+                                        No. Handphone
+                                    </label>
+                                </div>
+                                <div className="flex items-center space-x-2">
+                                    <Checkbox id="No. Telepon" />
+                                    <label
+                                        htmlFor="No. Telepon"
+                                        className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                                    >
+                                        No. Telepon
+                                    </label>
+                                </div>
+                                <div className="flex items-center space-x-2">
+                                    <Checkbox id="Fax" />
+                                    <label
+                                        htmlFor="Fax"
+                                        className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                                    >
+                                        Fax
+                                    </label>
+                                </div>
                             </div>
                             <div>
-                                <div className="flex flex-col gap-3">
-                                    <Toggle aria-label="Toggle italic" className="data-[state=on]:bg-primary data-[state=on]:text-white justify-start" variant={'outline'}>
-                                        Info Tambahan
-                                    </Toggle>
+                                <div className="flex flex-col gap-5">
+                                    <div className="flex items-center space-x-2">
+                                        <Checkbox id="info_tambahan" />
+                                        <label
+                                            htmlFor="info_tambahan"
+                                            className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                                        >
+                                            Info Tambahan
+                                        </label>
+                                    </div>
                                     <Separator />
-                                    <Toggle aria-label="Toggle italic" className="data-[state=on]:bg-primary data-[state=on]:text-white justify-start" variant={'outline'}>
-                                        Nama Perusahaan
-                                    </Toggle>
-                                    <Toggle aria-label="Toggle italic" className="data-[state=on]:bg-primary data-[state=on]:text-white justify-start" variant={'outline'}>
-                                        NPWP
-                                    </Toggle>
-                                    <Toggle aria-label="Toggle italic" className="data-[state=on]:bg-primary data-[state=on]:text-white justify-start" variant={'outline'}>
-                                        Nomor Identitas
-                                    </Toggle>
-                                    <Toggle aria-label="Toggle italic" className="data-[state=on]:bg-primary data-[state=on]:text-white justify-start" variant={'outline'}>
-                                        Alamat Penagihan
-                                    </Toggle>
-                                    <Toggle aria-label="Toggle italic" className="data-[state=on]:bg-primary data-[state=on]:text-white justify-start" variant={'outline'}>
-                                        Alamat Pengiriman
-                                    </Toggle>
-                                    <Toggle aria-label="Toggle italic" className="data-[state=on]:bg-primary data-[state=on]:text-white justify-start" variant={'outline'}>
-                                        Info Lainnya
-                                    </Toggle>
-                                    <Toggle aria-label="Toggle italic" className="data-[state=on]:bg-primary data-[state=on]:text-white justify-start" variant={'outline'}>
-                                        Informasi Bank
-                                    </Toggle>
-
+                                    <div className="flex items-center space-x-2">
+                                        <Checkbox id="nama_perusahaan" />
+                                        <label
+                                            htmlFor="nama_perusahaan"
+                                            className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                                        >
+                                            Nama Perusahaan
+                                        </label>
+                                    </div>
+                                    <div className="flex items-center space-x-2">
+                                        <Checkbox id="npwp" />
+                                        <label
+                                            htmlFor="npwp"
+                                            className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                                        >
+                                            NPWP
+                                        </label>
+                                    </div>
+                                    <div className="flex items-center space-x-2">
+                                        <Checkbox id="Nomor Identitas" />
+                                        <label
+                                            htmlFor="Nomor Identitas"
+                                            className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                                        >
+                                            Nomor Identitas
+                                        </label>
+                                    </div>
+                                    <div className="flex items-center space-x-2">
+                                        <Checkbox id="Alamat Penagihan" />
+                                        <label
+                                            htmlFor="Alamat Penagihan"
+                                            className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                                        >
+                                            Alamat Penagihan
+                                        </label>
+                                    </div>
+                                    <div className="flex items-center space-x-2">
+                                        <Checkbox id="Alamat Pengiriman" />
+                                        <label
+                                            htmlFor="Alamat Pengiriman"
+                                            className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                                        >
+                                            Alamat Pengiriman
+                                        </label>
+                                    </div>
+                                    <div className="flex items-center space-x-2">
+                                        <Checkbox id="Info Lainnya" />
+                                        <label
+                                            htmlFor="Info Lainnya"
+                                            className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                                        >
+                                            Info Lainnya
+                                        </label>
+                                    </div>
+                                    <div className="flex items-center space-x-2">
+                                        <Checkbox id="Informasi Bank" />
+                                        <label
+                                            htmlFor="Informasi Bank"
+                                            className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                                        >
+                                            Informasi Bank
+                                        </label>
+                                    </div>
                                 </div>
                             </div>
                         </div>

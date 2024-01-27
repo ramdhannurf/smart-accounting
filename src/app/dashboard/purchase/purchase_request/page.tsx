@@ -17,34 +17,25 @@ import { DrawerDialog } from "@/components/Dialog";
 import { X } from "lucide-react";
 import Link from "next/link";
 import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "@/components/ui/select";
+import Title from "@/components/Title";
+import FileUpload from "@/components/FileUpload";
 
 export default function PurchaseRequest() {
     const [open, setOpen] = useState<boolean>(false);
     const [potongan, setPotongan] = useState<boolean>(false);
     const [type_potongan, setTypePotongan] = useState<"rp" | "percentage">("rp");
+    const [files, setFiles] = useState<Array<File>>([]);
 
     return (
         <>
             <InnerContent>
                 <div className="mb-20">
-                    <Card className="mb-5">
-                        <CardContent className="py-3">
-                            <div className="flex justify-between">
-                                <div>
-                                    <p className="text-sm text-muted-foreground">Penjualan</p>
-                                    <h1 className="font-semibold text-2xl">Buat Permintaan Pembelian</h1>
-                                </div>
-                                <div className="flex gap-3 self-center">
-
-                                </div>
-                            </div>
-                        </CardContent>
-                    </Card>
+                    <Title title="Buat Permintaan Pembelian" subtitle="Penjualan"></Title>
                     <Card>
                         <CardContent className="py-5">
                             <div className="flex flex-col gap-5">
-                                <div className="grid grid-cols-3">
-                                    <div className="grid grid-cols-2 gap-3">
+                                <div className="grid 2xl:grid-cols-3 xl:grid-cols-3 grid-cols-1">
+                                    <div className="grid 2xl:grid-cols-2 xl:grid-cols-2 md:grid-cols-2 grid-cols-1 gap-3">
                                         <div className="flex flex-col gap-2">
                                             <Label>Staf penyetuju <span className="text-destructive-foreground">*</span></Label>
                                             <ComboBox select={[]} placeholder="Pilih staf" search="Cari staf..." name="staf" />
@@ -56,7 +47,7 @@ export default function PurchaseRequest() {
                                     </div>
                                 </div>
                                 <Separator className="my-3" />
-                                <div className="grid grid-cols-3 gap-5">
+                                <div className="grid 2xl:grid-cols-3 xl:grid-cols-3 md:grid-cols-3 grid-cols-1 gap-5">
                                     <div className="flex flex-col gap-5">
                                         <div className="flex flex-col gap-2">
                                             <Label>Nama Supplier</Label>
@@ -128,43 +119,45 @@ export default function PurchaseRequest() {
                                     <div className="flex justify-end gap-4">
                                         <Button onClick={() => setOpen(true)}>Tambah Data</Button>
                                     </div>
-                                    <Table>
-                                        <TableHeader className="bg-primary">
-                                            <TableRow>
-                                                <TableHead className="text-white">Produk</TableHead>
-                                                <TableHead className="text-white">Deskripsi</TableHead>
-                                                <TableHead className="text-white">Kuantitas</TableHead>
-                                                <TableHead className="text-white">Unit</TableHead>
-                                                <TableHead className="text-white"></TableHead>
-                                            </TableRow>
-                                        </TableHeader>
-                                        <TableBody>
-                                            <TableRow>
-                                                <TableCell>Alicia Koch</TableCell>
-                                                <TableCell>Paid</TableCell>
-                                                <TableCell>PPN</TableCell>
-                                                <TableCell>Rp. 100.000</TableCell>
-                                                <TableCell>
-                                                    <DropdownMenu>
-                                                        <DropdownMenuTrigger asChild>
-                                                            <Button variant="ghost" className="h-8 w-8 p-0">
-                                                                <span className="sr-only">Open menu</span>
-                                                                <DotsHorizontalIcon className="h-4 w-4" />
-                                                            </Button>
-                                                        </DropdownMenuTrigger>
-                                                        <DropdownMenuContent>
-                                                            <DropdownMenuLabel>Aksi</DropdownMenuLabel>
-                                                            <DropdownMenuSeparator />
-                                                            <DropdownMenuItem>Edit</DropdownMenuItem>
-                                                            <DropdownMenuItem>Hapus</DropdownMenuItem>
-                                                        </DropdownMenuContent>
-                                                    </DropdownMenu>
-                                                </TableCell>
-                                            </TableRow>
-                                        </TableBody>
-                                    </Table>
+                                    <div className="overflow-y-auto">
+                                        <Table>
+                                            <TableHeader className="bg-primary">
+                                                <TableRow>
+                                                    <TableHead className="text-white">Produk</TableHead>
+                                                    <TableHead className="text-white">Deskripsi</TableHead>
+                                                    <TableHead className="text-white">Kuantitas</TableHead>
+                                                    <TableHead className="text-white">Unit</TableHead>
+                                                    <TableHead className="text-white"></TableHead>
+                                                </TableRow>
+                                            </TableHeader>
+                                            <TableBody>
+                                                <TableRow>
+                                                    <TableCell>Alicia Koch</TableCell>
+                                                    <TableCell>Paid</TableCell>
+                                                    <TableCell>PPN</TableCell>
+                                                    <TableCell>Rp. 100.000</TableCell>
+                                                    <TableCell>
+                                                        <DropdownMenu>
+                                                            <DropdownMenuTrigger asChild>
+                                                                <Button variant="ghost" className="h-8 w-8 p-0">
+                                                                    <span className="sr-only">Open menu</span>
+                                                                    <DotsHorizontalIcon className="h-4 w-4" />
+                                                                </Button>
+                                                            </DropdownMenuTrigger>
+                                                            <DropdownMenuContent>
+                                                                <DropdownMenuLabel>Aksi</DropdownMenuLabel>
+                                                                <DropdownMenuSeparator />
+                                                                <DropdownMenuItem>Edit</DropdownMenuItem>
+                                                                <DropdownMenuItem>Hapus</DropdownMenuItem>
+                                                            </DropdownMenuContent>
+                                                        </DropdownMenu>
+                                                    </TableCell>
+                                                </TableRow>
+                                            </TableBody>
+                                        </Table>
+                                    </div>
                                 </div>
-                                <div className="grid grid-cols-2 gap-20 mt-6">
+                                <div className="grid 2xl:grid-cols-2 xl:grid-cols-2 md:grid-cols-2 grid-cols-1 gap-20 mt-6">
                                     <div className="flex flex-col gap-5">
                                         <div className="flex flex-col gap-2">
                                             <Label>Pesan</Label>
@@ -176,14 +169,14 @@ export default function PurchaseRequest() {
                                         </div>
                                         <div className="flex flex-col gap-2">
                                             <Label>Lampiran</Label>
-                                            <Input type="file" />
+                                            <FileUpload files={files} setFiles={setFiles} multiple={true} />
                                             <small>File dapat berupa Excel, Word, PDF, JPG, PNG, atau ZIP (maksimum 5 file dan 10 MB per file).</small>
                                         </div>
                                     </div>
                                     <Card className="mt-6 h-fit">
                                         <CardContent className="py-4">
                                             <div className="flex flex-col gap-5 w-full">
-                                                <div className="flex justify-between">
+                                                <div className="flex 2xl:flex-nowrap xl:flex-nowrap flex-wrap gap-3 justify-between">
                                                     <h3 className="text-xl font-bold">Total sisa tagihan</h3>
                                                     <h3 className="text-xl font-bold">Rp. 0,00</h3>
                                                 </div>

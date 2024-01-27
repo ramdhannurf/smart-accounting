@@ -2,7 +2,9 @@
 import { ComboBox } from "@/components/ComboBox";
 import { DrawerDialog } from "@/components/Dialog";
 import InnerContent from "@/components/InnerContent";
+import Title from "@/components/Title";
 import { DatePicker } from "@/components/date-time";
+import EditSaldoAwal from "@/components/modal/EditSaldoAwal";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -72,22 +74,13 @@ export default function AddAccount() {
         <>
             <InnerContent>
                 <div className="mb-20">
-                    <Card className="mb-5">
-                        <CardContent className="py-3">
-                            <div className="flex justify-between">
-                                <div>
-                                    <p className="text-sm text-muted-foreground">Akun</p>
-                                    <h1 className="font-semibold text-2xl">Buat Akun Baru</h1>
-                                </div>
-                            </div>
-                        </CardContent>
-                    </Card>
+                    <Title title="Buat Akun Baru" subtitle="Akun"></Title>
                     <Card>
                         <CardHeader>
                             <CardTitle>Informasi Akun</CardTitle>
                         </CardHeader>
                         <CardContent>
-                            <div className="flex flex-col gap-4 w-1/2">
+                            <div className="flex flex-col gap-4 2xl:w-1/2 xl:w-1/2 w-full">
                                 <div className="flex flex-col gap-1">
                                     <Label>Nama</Label>
                                     <Input type="text" />
@@ -127,53 +120,7 @@ export default function AddAccount() {
                     </Card>
                 </div>
             </InnerContent>
-            <DrawerDialog open={open} setOpen={setOpen} title="Edit Saldo Awal" desc="Pilih tanggal konversi">
-                <div className="flex flex-col gap-5">
-                    <div className="flex flex-col gap-2 mt-2">
-                        <div className="flex gap-2">
-                            <Label>Tanggal Konversi</Label>
-                            <Tooltip>
-                                <TooltipTrigger asChild>
-                                    <HelpCircle size={12} />
-                                </TooltipTrigger>
-                                <TooltipContent>
-                                    <p>Tanggal mulai pencatatan di Jurnal</p>
-                                </TooltipContent>
-                            </Tooltip>
-                        </div>
-                        <DatePicker />
-                    </div>
-                    <div>
-                        <Alert>
-                            <AlertDescription>
-                                <h4 className="font-bold">Perlu diketahui</h4>
-                                <div className="flex flex-col gap-3 mt-3">
-                                    <div className="flex gap-2">
-                                        <div>
-                                            <CheckCircle2 size={16} className="text-primary relative top-1" />
-                                        </div>
-                                        <div>
-                                            <p className="text-sm">Anda dapat mengubah tanggal konversi selama belum melakukan tutup buku.</p>
-                                        </div>
-                                    </div>
-                                    <div className="flex gap-2">
-                                        <div>
-                                            <CheckCircle2 size={16} className="text-primary relative top-1" />
-                                        </div>
-                                        <div>
-                                            <p className="text-sm">Anda bisa input transaksi sebelum tanggal konversi dengan batasan 300.000 akun transaksi. Transaksi yang diinput tidak akan memengaruhi saldo saat ini.</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </AlertDescription>
-                        </Alert>
-                    </div>
-                    <div className="flex flex-col gap-3">
-                        <Button>Lihat Saldo Konversi</Button>
-                        <Button variant={"outline"} onClick={() => setOpen(false)}>Batal</Button>
-                    </div>
-                </div>
-            </DrawerDialog>
+            <EditSaldoAwal open={open} setOpen={setOpen} />
         </>
     )
 }

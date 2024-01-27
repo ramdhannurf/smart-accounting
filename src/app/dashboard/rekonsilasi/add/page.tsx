@@ -49,7 +49,7 @@ export default function AddRekonsilasiPage() {
                         </CardHeader>
                         <CardContent>
                             <div className="flex flex-col gap-3">
-                                <div className="grid grid-cols-3 gap-5">
+                                <div className="grid 2xl:grid-cols-3 xl:grid-cols-3 md:grid-cols-3 grid-cols-1 gap-5">
                                     <div className="flex flex-col gap-1">
                                         <Label>Nama Aturan</Label>
                                         <Input />
@@ -65,7 +65,7 @@ export default function AddRekonsilasiPage() {
                                 </div>
                                 <Separator className="my-3" />
                                 <div className="flex flex-col gap-5">
-                                    <div className="flex gap-2">
+                                    <div className="flex 2xl:flex-nowrap xl:flex-nowrap flex-wrap gap-2">
                                         <p className="self-center">1. Sewaktu transaksi bank menemukan </p>
                                         <Select>
                                             <SelectTrigger className="w-[180px]">
@@ -85,47 +85,50 @@ export default function AddRekonsilasiPage() {
                                         <div className="text-end mb-5">
                                             <Button onClick={() => setOpen(true)}>Tambah kondisi</Button>
                                         </div>
-                                        <Table>
-                                            <TableHeader className="bg-primary">
-                                                <TableRow>
-                                                    <TableHead className="text-white">Deskripsi</TableHead>
-                                                    <TableHead className="text-white">Kondisi</TableHead>
-                                                    <TableHead className="text-white">Jumlah/Keterangan</TableHead>
-                                                    <TableHead className="text-white"></TableHead>
-                                                </TableRow>
-                                            </TableHeader>
-                                            <TableBody>
-                                                <TableRow>
-                                                    <TableCell>Alicia Koch</TableCell>
-                                                    <TableCell>Paid</TableCell>
-                                                    <TableCell>Rp. 100.000</TableCell>
-                                                    <TableCell>
-                                                        <DropdownMenu>
-                                                            <DropdownMenuTrigger asChild>
-                                                                <Button variant="ghost" className="h-8 w-8 p-0">
-                                                                    <span className="sr-only">Open menu</span>
-                                                                    <DotsHorizontalIcon className="h-4 w-4" />
-                                                                </Button>
-                                                            </DropdownMenuTrigger>
-                                                            <DropdownMenuContent>
-                                                                <DropdownMenuLabel>Aksi</DropdownMenuLabel>
-                                                                <DropdownMenuSeparator />
-                                                                <DropdownMenuItem>Edit</DropdownMenuItem>
-                                                                <DropdownMenuItem>Hapus</DropdownMenuItem>
-                                                            </DropdownMenuContent>
-                                                        </DropdownMenu>
-                                                    </TableCell>
-                                                </TableRow>
-                                            </TableBody>
-                                        </Table>
+                                        <div className="overflow-y-auto">
+                                            <Table>
+                                                <TableHeader className="bg-primary">
+                                                    <TableRow>
+                                                        <TableHead className="text-white">Deskripsi</TableHead>
+                                                        <TableHead className="text-white">Kondisi</TableHead>
+                                                        <TableHead className="text-white">Jumlah/Keterangan</TableHead>
+                                                        <TableHead className="text-white"></TableHead>
+                                                    </TableRow>
+                                                </TableHeader>
+                                                <TableBody>
+                                                    <TableRow>
+                                                        <TableCell>Alicia Koch</TableCell>
+                                                        <TableCell>Paid</TableCell>
+                                                        <TableCell>Rp. 100.000</TableCell>
+                                                        <TableCell>
+                                                            <DropdownMenu>
+                                                                <DropdownMenuTrigger asChild>
+                                                                    <Button variant="ghost" className="h-8 w-8 p-0">
+                                                                        <span className="sr-only">Open menu</span>
+                                                                        <DotsHorizontalIcon className="h-4 w-4" />
+                                                                    </Button>
+                                                                </DropdownMenuTrigger>
+                                                                <DropdownMenuContent>
+                                                                    <DropdownMenuLabel>Aksi</DropdownMenuLabel>
+                                                                    <DropdownMenuSeparator />
+                                                                    <DropdownMenuItem>Edit</DropdownMenuItem>
+                                                                    <DropdownMenuItem>Hapus</DropdownMenuItem>
+                                                                </DropdownMenuContent>
+                                                            </DropdownMenu>
+                                                        </TableCell>
+                                                    </TableRow>
+                                                </TableBody>
+                                            </Table>
+                                        </div>
+
                                     </div>
                                 </div>
                                 <Separator className="my-3" />
-                                <div className="flex flex-col gap-5 w-1/2">
+                                <div className="flex flex-col gap-5 2xl:w-1/2 xl:w-1/2 w-full">
                                     <p>2. Catat di Jurnal sebagai Deposit Bank:</p>
-                                    <div className="flex flex-col gap-2 ml-5">
+                                    <div className="flex 2xl:flex-nowrap xl:flex-nowrap flex-wrap flex-col gap-2 ml-5">
                                         <Label>Kategori</Label>
-                                        <div className="flex gap-3 w-full">
+                                        <div className="flex  gap-3 w-full">
                                             <div className="w-full">
                                                 <ComboBox select={[]} placeholder="Pilih akun" search="Cari akun..." name="akun" />
                                             </div>
@@ -169,7 +172,7 @@ export default function AddRekonsilasiPage() {
                                     }
                                 </div>
                                 <Separator className="my-3" />
-                                <div className="flex justify-between">
+                                <div className="flex 2xl:flex-nowrap xl:flex-nowrap flex-wrap gap-3 justify-between">
                                     <div className="self-center">
                                         <div className="flex items-center space-x-2">
                                             <Switch id="airplane-mode" />

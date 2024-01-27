@@ -25,29 +25,31 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { DotsHorizontalIcon } from "@radix-ui/react-icons";
 import { DrawerDialog } from "@/components/Dialog";
 import Link from "next/link";
+import { FilePond, registerPlugin } from 'react-filepond';
+import FilePondPluginImageExifOrientation from 'filepond-plugin-image-exif-orientation';
+import FilePondPluginImagePreview from 'filepond-plugin-image-preview';
+import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css';
+// Import FilePond styles
+import 'filepond/dist/filepond.min.css';
+import AlertConfirm from "@/components/AlertConfirm";
+import Title from "@/components/Title";
+import { TagsInput } from "react-tag-input-component";
+registerPlugin(FilePondPluginImageExifOrientation, FilePondPluginImagePreview);
 
 export default function ExpensesAddPage() {
     const [potongan, setPotongan] = useState<boolean>(false);
     const [type_potongan, setTypePotongan] = useState<"rp" | "percentage">("rp");
     const [open, setOpen] = useState<boolean>(false);
+    const [files, setFiles] = useState<any>([]);
+    const [selected, setSelected] = useState<Array<string>>([]);
+
+    const [paylater, setPaylater] = useState<boolean>(false);
 
     return (
         <>
             <InnerContent>
                 <div className="mb-20">
-                    <Card className="mb-5">
-                        <CardContent className="py-3">
-                            <div className="flex justify-between">
-                                <div>
-                                    <p className="text-sm text-muted-foreground">Biaya</p>
-                                    <h1 className="font-semibold text-2xl">Buat Biaya</h1>
-                                </div>
-                                <div className="flex gap-3 self-center">
-
-                                </div>
-                            </div>
-                        </CardContent>
-                    </Card>
+                    <Title title="Buat Biaya" subtitle="Biaya"></Title>
                     <Card>
                         <CardHeader>
                             <CardTitle>
@@ -56,16 +58,16 @@ export default function ExpensesAddPage() {
                         </CardHeader>
                         <CardContent>
                             <div className="flex flex-col gap-5">
-                                <div className="grid grid-cols-2">
+                                <div className="grid 2xl:grid-cols-2 xl:grid-cols-2 md:grid-cols-2 grid-cols-1 gap-5">
                                     <Card>
                                         <CardContent className="py-4">
                                             <div className="flex gap-5">
                                                 <div className="flex flex-col gap-2 w-full">
                                                     <Label>Bayar Dari</Label>
-                                                    <ComboBox select={[]} placeholder="Pilih kas" search="Cari kas..." name="kas" />
+                                                    <ComboBox select={[]} placeholder="Pilih kas" search="Cari kas..." name="kas" disabled={paylater} />
                                                 </div>
                                                 <div className="flex items-center space-x-2 w-full ">
-                                                    <Switch id="bayar-nanti" />
+                                                    <Switch id="bayar-nanti" checked={paylater} onCheckedChange={setPaylater} />
                                                     <Label htmlFor="bayar-nanti">Bayar Nanti</Label>
                                                 </div>
                                             </div>
@@ -77,17 +79,7 @@ export default function ExpensesAddPage() {
                                 </div>
                                 <Separator />
 
-                                <div className="grid grid-cols-3 gap-5">
-                                    <div className="flex flex-col gap-5">
-                                        <div className="flex flex-col gap-2">
-                                            <Label>Penerima</Label>
-                                            <ComboBox select={[]} placeholder="Pilih kotak" search="Cari kotak..." name="kotak" />
-                                        </div>
-                                        <div className="flex flex-col gap-2">
-                                            <Label>Alamat Penagihan</Label>
-                                            <Textarea />
-                                        </div>
-                                    </div>
+                                <div className="grid 2xl:grid-cols-3 xl:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-5">
                                     <div className="flex flex-col gap-5">
                                         <div className="flex flex-col gap-2">
                                             <Label>Tanggal Transaksi</Label>
@@ -106,6 +98,37 @@ export default function ExpensesAddPage() {
                                                 </SelectContent>
                                             </Select>
                                         </div>
+                                        {
+                                            paylater === true && <div className="flex flex-col gap-5">
+                                                <div className="flex flex-col gap-2">
+                                                    <Label>Tanggal Jatuh Tempo</Label>
+                                                    <DatePicker />
+                                                </div>
+                                                <div className="flex flex-col gap-2">
+                                                    <Label>Syarat Pembayaran</Label>
+                                                    <Select>
+                                                        <SelectTrigger className="w-full">
+                                                            <SelectValue placeholder="Pilih syarat pembayaran" />
+                                                        </SelectTrigger>
+                                                        <SelectContent>
+                                                            <SelectGroup>
+                                                                <SelectItem value="net_30">Net 30</SelectItem>
+                                                            </SelectGroup>
+                                                        </SelectContent>
+                                                    </Select>
+                                                </div>
+                                            </div>
+                                        }
+                                    </div>
+                                    <div className="flex flex-col gap-5">
+                                        <div className="flex flex-col gap-2">
+                                            <Label>Penerima</Label>
+                                            <ComboBox select={[]} placeholder="Pilih kotak" search="Cari kotak..." name="kotak" />
+                                        </div>
+                                        <div className="flex flex-col gap-2">
+                                            <Label>Alamat Penagihan</Label>
+                                            <Textarea />
+                                        </div>
                                     </div>
                                     <div className="flex flex-col gap-5">
                                         <div className="flex flex-col gap-2">
@@ -114,56 +137,66 @@ export default function ExpensesAddPage() {
                                         </div>
                                         <div className="flex flex-col gap-2">
                                             <Label>Tag</Label>
-                                            <Input />
+                                            <TagsInput
+                                                value={selected}
+                                                onChange={setSelected}
+                                                placeHolder="enter tag"
+                                                classNames={{
+                                                    input: "!text-sm focus:outline-primary",
+                                                    tag: "!text-sm"
+                                                }}
+                                            />
                                         </div>
                                     </div>
                                 </div>
                                 <div className="flex flex-col gap-3">
-                                    <div className="flex justify-end gap-4">
-                                        <div className="flex items-center space-x-2">
+                                    <div className="flex 2xl:flex-nowrap xl:flex-nowrap flex-wrap justify-end gap-4">
+                                        <div className="flex  items-center space-x-2">
                                             <Switch id="airplane-mode" />
                                             <Label htmlFor="airplane-mode">Harga termasuk pajak?</Label>
                                         </div>
                                         <Button onClick={() => setOpen(true)}>Tambah Data</Button>
                                     </div>
-                                    <Table>
-                                        <TableHeader className="bg-primary">
-                                            <TableRow>
-                                                <TableHead className="text-white">Akun Biaya</TableHead>
-                                                <TableHead className="text-white">Deskripsi</TableHead>
-                                                <TableHead className="text-white">Pajak</TableHead>
-                                                <TableHead className="text-white">Jumlah</TableHead>
-                                                <TableHead className="text-white"></TableHead>
-                                            </TableRow>
-                                        </TableHeader>
-                                        <TableBody>
-                                            <TableRow>
-                                                <TableCell>Alicia Koch</TableCell>
-                                                <TableCell>Paid</TableCell>
-                                                <TableCell>PPN</TableCell>
-                                                <TableCell>Rp. 100.000</TableCell>
-                                                <TableCell>
-                                                    <DropdownMenu>
-                                                        <DropdownMenuTrigger asChild>
-                                                            <Button variant="ghost" className="h-8 w-8 p-0">
-                                                                <span className="sr-only">Open menu</span>
-                                                                <DotsHorizontalIcon className="h-4 w-4" />
-                                                            </Button>
-                                                        </DropdownMenuTrigger>
-                                                        <DropdownMenuContent>
-                                                            <DropdownMenuLabel>Aksi</DropdownMenuLabel>
-                                                            <DropdownMenuSeparator />
-                                                            <DropdownMenuItem>Edit</DropdownMenuItem>
-                                                            <DropdownMenuItem>Hapus</DropdownMenuItem>
-                                                        </DropdownMenuContent>
-                                                    </DropdownMenu>
-                                                </TableCell>
-                                            </TableRow>
-                                        </TableBody>
-                                    </Table>
+                                    <div className="overflow-y-auto">
+                                        <Table>
+                                            <TableHeader className="bg-primary">
+                                                <TableRow>
+                                                    <TableHead className="text-white">Akun Biaya</TableHead>
+                                                    <TableHead className="text-white">Deskripsi</TableHead>
+                                                    <TableHead className="text-white">Pajak</TableHead>
+                                                    <TableHead className="text-white">Jumlah</TableHead>
+                                                    <TableHead className="text-white"></TableHead>
+                                                </TableRow>
+                                            </TableHeader>
+                                            <TableBody>
+                                                <TableRow>
+                                                    <TableCell>Alicia Koch</TableCell>
+                                                    <TableCell>Paid</TableCell>
+                                                    <TableCell>PPN</TableCell>
+                                                    <TableCell>Rp. 100.000</TableCell>
+                                                    <TableCell>
+                                                        <DropdownMenu>
+                                                            <DropdownMenuTrigger asChild>
+                                                                <Button variant="ghost" className="h-8 w-8 p-0">
+                                                                    <span className="sr-only">Open menu</span>
+                                                                    <DotsHorizontalIcon className="h-4 w-4" />
+                                                                </Button>
+                                                            </DropdownMenuTrigger>
+                                                            <DropdownMenuContent>
+                                                                <DropdownMenuLabel>Aksi</DropdownMenuLabel>
+                                                                <DropdownMenuSeparator />
+                                                                <DropdownMenuItem>Edit</DropdownMenuItem>
+                                                                <DropdownMenuItem>Hapus</DropdownMenuItem>
+                                                            </DropdownMenuContent>
+                                                        </DropdownMenu>
+                                                    </TableCell>
+                                                </TableRow>
+                                            </TableBody>
+                                        </Table>
+                                    </div>
                                 </div>
                                 <Separator />
-                                <div className="grid grid-cols-2 gap-20 mt-6">
+                                <div className="grid 2xl:grid-cols-2 xl:grid-cols-2 md:grid-cols-2 grid-cols-1 gap-20 mt-6">
                                     <div className="flex flex-col gap-5">
                                         <div className="flex flex-col gap-2">
                                             <Label>Memo</Label>
@@ -171,7 +204,7 @@ export default function ExpensesAddPage() {
                                         </div>
                                         <div className="flex flex-col gap-2">
                                             <Label>Lampiran</Label>
-                                            <Input type="file" />
+                                            <FilePond allowMultiple={false} files={files} onupdatefiles={setFiles} maxFiles={5} fileSizeBase={10000} acceptedFileTypes={['application/vnd.ms-excel', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document', 'application/pdf', 'image/jpeg', 'image/png', 'application/zip']} />
                                             <small>File dapat berupa Excel, Word, PDF, JPG, PNG, atau ZIP (maksimum 5 file dan 10 MB per file).</small>
                                         </div>
                                     </div>
@@ -190,7 +223,7 @@ export default function ExpensesAddPage() {
                                                         <h3 className="font-bold text-md">Total</h3>
                                                         <h3 className="font-bold text-md">Rp. 0,00</h3>
                                                     </div>
-                                                    <div className="flex justify-between">
+                                                    <div className="flex 2xl:flex-nowrap xl:flex-nowrap flex-wrap gap-3 justify-between">
                                                         <p className="self-center">Potongan ({type_potongan === "rp" ? "Rp." : "%"})</p>
                                                         {
                                                             potongan ? <div className="flex flex-col gap-3">
@@ -251,6 +284,8 @@ export default function ExpensesAddPage() {
                     </div>
                 </div>
             </DrawerDialog>
+
+
         </>
     )
 }

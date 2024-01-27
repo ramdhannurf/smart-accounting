@@ -16,34 +16,26 @@ import { useState } from "react";
 import { DrawerDialog } from "@/components/Dialog";
 import { X } from "lucide-react";
 import Link from "next/link";
+import Title from "@/components/Title";
+import FileUpload from "@/components/FileUpload";
 
 export default function MergedInvoicesPage() {
     const [open, setOpen] = useState<boolean>(false);
     const [potongan, setPotongan] = useState<boolean>(false);
     const [type_potongan, setTypePotongan] = useState<"rp" | "percentage">("rp");
+    const [selected, setSelected] = useState<Array<string>>([]);
+    const [files, setFiles] = useState<Array<File>>([]);
 
     return (
         <>
             <InnerContent>
                 <div className="mb-20">
-                    <Card className="mb-5">
-                        <CardContent className="py-3">
-                            <div className="flex justify-between">
-                                <div>
-                                    <p className="text-sm text-muted-foreground">Penjualan</p>
-                                    <h1 className="font-semibold text-2xl">Buat Penagihan Penjualan</h1>
-                                </div>
-                                <div className="flex gap-3 self-center">
-
-                                </div>
-                            </div>
-                        </CardContent>
-                    </Card>
+                    <Title title="Buat Penagihan Penjualan" subtitle="Penjualan"></Title>
                     <Card>
                         <CardContent className="py-5">
                             <div className="flex flex-col gap-5">
-                                <div className="flex justify-between">
-                                    <div className="grid grid-cols-2 gap-3">
+                                <div className="flex 2xl:flex-nowrap xl:flex-nowrap flex-wrap gap-5 justify-between">
+                                    <div className="grid 2xl:grid-cols-2 xl:grid-cols-2 md:grid-cols-2 grid-cols-1 gap-3">
                                         <div className="flex flex-col gap-2">
                                             <Label>Pelanggan <span className="text-destructive-foreground">*</span></Label>
                                             <ComboBox select={[]} placeholder="Pilih kontak" search="Cari kontak..." name="kontak" />
@@ -58,7 +50,7 @@ export default function MergedInvoicesPage() {
                                     </div>
                                 </div>
                                 <Separator className="my-3" />
-                                <div className="grid grid-cols-3 gap-5">
+                                <div className="grid 2xl:grid-cols-3 xl:grid-cols-3 md:grid-cols-3 grid-cols-1 gap-5">
                                     <div className="flex flex-col gap-2">
                                         <Label>Alamat penagih</Label>
                                         <Textarea />
@@ -90,48 +82,50 @@ export default function MergedInvoicesPage() {
                                     <div className="flex justify-end gap-4">
                                         <Button onClick={() => setOpen(true)}>Tambah Data</Button>
                                     </div>
-                                    <Table>
-                                        <TableHeader className="bg-primary">
-                                            <TableRow>
-                                                <TableHead className="text-white">Penagihan Penjualan</TableHead>
-                                                <TableHead className="text-white">Deskripsi</TableHead>
-                                                <TableHead className="text-white">Tgl. jatuh tempo</TableHead>
-                                                <TableHead className="text-white">Status</TableHead>
-                                                <TableHead className="text-white">Jumlah tagihan</TableHead>
-                                                <TableHead className="text-white">Sisa tagihan</TableHead>
-                                                <TableHead className="text-white"></TableHead>
-                                            </TableRow>
-                                        </TableHeader>
-                                        <TableBody>
-                                            <TableRow>
-                                                <TableCell>Alicia Koch</TableCell>
-                                                <TableCell>Paid</TableCell>
-                                                <TableCell>PPN</TableCell>
-                                                <TableCell>Rp. 100.000</TableCell>
-                                                <TableCell>Rp. 100.000</TableCell>
-                                                <TableCell>Rp. 100.000</TableCell>
+                                    <div className="overflow-y-auto">
+                                        <Table>
+                                            <TableHeader className="bg-primary">
+                                                <TableRow>
+                                                    <TableHead className="text-white">Penagihan Penjualan</TableHead>
+                                                    <TableHead className="text-white">Deskripsi</TableHead>
+                                                    <TableHead className="text-white">Tgl. jatuh tempo</TableHead>
+                                                    <TableHead className="text-white">Status</TableHead>
+                                                    <TableHead className="text-white">Jumlah tagihan</TableHead>
+                                                    <TableHead className="text-white">Sisa tagihan</TableHead>
+                                                    <TableHead className="text-white"></TableHead>
+                                                </TableRow>
+                                            </TableHeader>
+                                            <TableBody>
+                                                <TableRow>
+                                                    <TableCell>Alicia Koch</TableCell>
+                                                    <TableCell>Paid</TableCell>
+                                                    <TableCell>PPN</TableCell>
+                                                    <TableCell>Rp. 100.000</TableCell>
+                                                    <TableCell>Rp. 100.000</TableCell>
+                                                    <TableCell>Rp. 100.000</TableCell>
 
-                                                <TableCell>
-                                                    <DropdownMenu>
-                                                        <DropdownMenuTrigger asChild>
-                                                            <Button variant="ghost" className="h-8 w-8 p-0">
-                                                                <span className="sr-only">Open menu</span>
-                                                                <DotsHorizontalIcon className="h-4 w-4" />
-                                                            </Button>
-                                                        </DropdownMenuTrigger>
-                                                        <DropdownMenuContent>
-                                                            <DropdownMenuLabel>Aksi</DropdownMenuLabel>
-                                                            <DropdownMenuSeparator />
-                                                            <DropdownMenuItem>Edit</DropdownMenuItem>
-                                                            <DropdownMenuItem>Hapus</DropdownMenuItem>
-                                                        </DropdownMenuContent>
-                                                    </DropdownMenu>
-                                                </TableCell>
-                                            </TableRow>
-                                        </TableBody>
-                                    </Table>
+                                                    <TableCell>
+                                                        <DropdownMenu>
+                                                            <DropdownMenuTrigger asChild>
+                                                                <Button variant="ghost" className="h-8 w-8 p-0">
+                                                                    <span className="sr-only">Open menu</span>
+                                                                    <DotsHorizontalIcon className="h-4 w-4" />
+                                                                </Button>
+                                                            </DropdownMenuTrigger>
+                                                            <DropdownMenuContent>
+                                                                <DropdownMenuLabel>Aksi</DropdownMenuLabel>
+                                                                <DropdownMenuSeparator />
+                                                                <DropdownMenuItem>Edit</DropdownMenuItem>
+                                                                <DropdownMenuItem>Hapus</DropdownMenuItem>
+                                                            </DropdownMenuContent>
+                                                        </DropdownMenu>
+                                                    </TableCell>
+                                                </TableRow>
+                                            </TableBody>
+                                        </Table>
+                                    </div>
                                 </div>
-                                <div className="grid grid-cols-2 gap-20 mt-6">
+                                <div className="grid 2xl:grid-cols-2 xl:grid-cols-2 md:grid-cols-2 grid-cols-1 gap-20 mt-6">
                                     <div className="flex flex-col gap-5">
                                         <div className="flex flex-col gap-2">
                                             <Label>Pesan</Label>
@@ -143,7 +137,7 @@ export default function MergedInvoicesPage() {
                                         </div>
                                         <div className="flex flex-col gap-2">
                                             <Label>Lampiran</Label>
-                                            <Input type="file" />
+                                            <FileUpload files={files} setFiles={setFiles} multiple={true} />
                                             <small>File dapat berupa Excel, Word, PDF, JPG, PNG, atau ZIP (maksimum 5 file dan 10 MB per file).</small>
                                         </div>
                                     </div>

@@ -30,10 +30,10 @@ export default function PelangganTabs() {
                 <div className="mb-5 grid grid-cols-3 gap-5">
                     {
                         analytics_pelanggan.map((el, i: number) => {
-                            return <Card>
+                            return <Card key={i}>
                                 <CardHeader style={{ backgroundColor: el.color }} className="rounded-t-lg flex justify-between !flex-row">
                                     <div className="self-center">
-                                        <CardTitle className="text-sm">{el.title}</CardTitle>
+                                        <CardTitle className="text-sm text-black">{el.title}</CardTitle>
                                     </div>
                                     <div>
                                         <Badge className="bg-white text-black">{el.count}</Badge>

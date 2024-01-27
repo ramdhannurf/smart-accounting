@@ -27,7 +27,7 @@ export const columns = [
         ),
     },
     {
-        accessorKey: "taksi",
+        accessorKey: "aksi",
         header: ({ column }: any) => (
             <DataTableColumnHeader column={column} title="Aksi" />
         ),

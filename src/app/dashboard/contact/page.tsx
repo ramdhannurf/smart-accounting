@@ -18,6 +18,7 @@ import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
 import { DataTable } from "../cash/data/data-table";
 import { columns_contact } from "./data/columns";
+import Title from "@/components/Title";
 
 
 
@@ -44,20 +45,11 @@ export default function ContactPage() {
         <>
             <InnerContent>
                 <div className="mb-20">
-                    <Card className="mb-5">
-                        <CardContent className="py-3">
-                            <div className="flex justify-between">
-                                <div className="self-center">
-                                    <h1 className="font-semibold text-2xl">Kontak</h1>
-                                </div>
-                                <div>
-                                    <Link href={"/dashboard/contact/add"}>
-                                        <Button>Buat Kontak</Button>
-                                    </Link>
-                                </div>
-                            </div>
-                        </CardContent>
-                    </Card>
+                    <Title title="Kontak" subtitle="">
+                        <Link href={"/dashboard/contact/add"}>
+                            <Button>Buat Kontak</Button>
+                        </Link>
+                    </Title>
                     <Tabs defaultValue="pelanggan" className="" onValueChange={(value) => setTabs(value)}>
                         <TabsList>
                             <TabsTrigger value="pelanggan">Pelanggan</TabsTrigger>
@@ -68,13 +60,13 @@ export default function ContactPage() {
                         </TabsList>
                     </Tabs>
                     <div className="flex flex-col gap-1 mt-3">
-                        <div className="mb-3 grid grid-cols-3 gap-5">
+                        <div className="mb-3 grid 2xl:grid-cols-3 xl:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-5">
                             {
                                 analytics.map((el, i: number) => {
-                                    return <Card>
+                                    return <Card key={i}>
                                         <CardHeader style={{ backgroundColor: el.color }} className="rounded-t-lg flex justify-between !flex-row">
                                             <div className="self-center">
-                                                <CardTitle className="text-sm">{el.title}</CardTitle>
+                                                <CardTitle className="text-sm text-black">{el.title}</CardTitle>
                                             </div>
                                             <div>
                                                 <Badge className="bg-white text-black">{el.count}</Badge>
@@ -95,7 +87,7 @@ export default function ContactPage() {
                         </div>
                         <Card>
                             <CardContent className="py-3">
-                                <div className="flex justify-between">
+                                <div className="flex gap-3 2xl:flex-nowrap xl:flex-nowrap flex-wrap justify-between">
                                     <Button onClick={() => setOpenGroup(true)}>Atur Grup Kontak</Button>
                                     <div className="flex gap-3">
                                         <DropdownButton title="Impor" variant={"outline"}>

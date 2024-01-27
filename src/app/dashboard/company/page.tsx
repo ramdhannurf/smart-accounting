@@ -5,21 +5,19 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import Link from "next/link";
 import { DataTable } from "../cash/data/data-table";
 import { columns_company } from "./data/columns";
-import { DrawerDialog } from "@/components/Dialog";
-import { Label } from "@/components/ui/label";
-import { Input } from "@/components/ui/input";
-import { useState } from "react";
-import { ComboBox } from "@/components/ComboBox";
-import {
-    Select,
-    SelectContent,
-    SelectItem,
-    SelectTrigger,
-    SelectValue,
-} from "@/components/ui/select"
+
+import { useEffect, useState } from "react";
+import NewPerusahaan from "@/components/NewPerusahaan";
+import { RowSelectionState } from "@tanstack/react-table";
+
 
 export default function CompanyPage() {
     const [open, setOpen] = useState<boolean>(false);
+    const [rowSelection, setRowSelection] = useState<RowSelectionState>({});
+
+    useEffect(() => {
+        console.log(rowSelection);
+    }, [rowSelection]);
 
     return (
         <>
@@ -32,7 +30,7 @@ export default function CompanyPage() {
                                     <h1 className="font-semibold text-2xl">List Perusahaan</h1>
                                 </div>
                                 <div className="flex gap-3 self-center">
-                                    <Link href={"/dashboard/profile"}>
+                                    <Link href={"/dashboard/settings/profile"}>
                                         <Button variant={"outline"}>Profil Akun</Button>
                                     </Link>
                                     <Button onClick={() => setOpen(true)}>Daftar Perusahaan Baru</Button>
@@ -45,68 +43,40 @@ export default function CompanyPage() {
                             <CardTitle>List Perusahaan</CardTitle>
                         </CardHeader>
                         <CardContent>
-                            <DataTable columns={columns_company} data={[{
+                            <small className="text-muted-foreground">Maksimal untuk Pin Perusahaan adalah 3 Pin.</small>
+                            <DataTable columns={columns_company} setRowSelection={setRowSelection} rowSelection={rowSelection} data={[{
                                 nama_perusahaan: "Acme Inc",
                                 role: "Owner",
                                 created_at: "01-01-2024",
-                                aksi: ""
+                                aksi: "",
+                                pin: true
                             },
                             {
                                 nama_perusahaan: "Monsters Inc",
                                 role: "Owner",
                                 created_at: "02-01-2024",
-                                aksi: ""
+                                aksi: "",
+                                pin: false
+                            },
+                            {
+                                nama_perusahaan: "Monsters Inc",
+                                role: "Owner",
+                                created_at: "02-01-2024",
+                                aksi: "",
+                                pin: false
+                            },
+                            {
+                                nama_perusahaan: "Monsters Inc",
+                                role: "Owner",
+                                created_at: "02-01-2024",
+                                aksi: "",
+                                pin: false
                             }]} search_data="nama_perusahaan" search_placeholder="Cari nama perusahaan..." />
                         </CardContent>
                     </Card>
                 </div>
             </InnerContent>
-            <DrawerDialog title="Daftar Perusahaan Baru" desc="Lengkapi data berikut untuk mulai pakai Smart Accounting." open={open} setOpen={setOpen}>
-                <div className="flex flex-col gap-4">
-                    <div className="flex flex-col gap-2">
-                        <Label htmlFor="">Nama perusahaan</Label>
-                        <Input />
-                    </div>
-                    <div className="flex flex-col gap-2">
-                        <Label htmlFor="">Industri</Label>
-                        <ComboBox select={[]} placeholder="Pilih industri" name="industri" search="Cari industri..." />
-                    </div>
-                    <div className="flex flex-col gap-2">
-                        <Label htmlFor="">Bahasa untuk Daftar Akun</Label>
-                        <ComboBox select={[]} placeholder="Pilih industri" name="industri" search="Cari industri..." />
-                    </div>
-                    <div className="flex flex-col gap-2">
-                        <Label htmlFor="">Paket Fitur</Label>
-                        <Select>
-                            <SelectTrigger>
-                                <SelectValue placeholder="Pilih paket" />
-                            </SelectTrigger>
-                            <SelectContent>
-                                <SelectItem value="free">
-                                    <span className="font-medium">Free</span> -{" "}
-                                    <span className="text-muted-foreground">
-                                        Trial for two weeks
-                                    </span>
-                                </SelectItem>
-                                <SelectItem value="pro">
-                                    <span className="font-medium">Pro</span> -{" "}
-                                    <span className="text-muted-foreground">
-                                        $9/month per user
-                                    </span>
-                                </SelectItem>
-                            </SelectContent>
-                        </Select>
-                    </div>
-                    <div className="flex flex-col gap-2">
-                        <Label htmlFor="">Keamanan PIN (Optional)</Label>
-                        <Input type="number" />
-                    </div>
-                    <div className="flex flex-col gap-2 mt-2">
-                        <Button>Daftar perusahaan</Button>
-                        <Button variant={"outline"} onClick={() => setOpen(false)}>Batal</Button>
-                    </div>
-                </div>
-            </DrawerDialog>
+            <NewPerusahaan open={open} setOpen={setOpen} />
         </>
     )
 }

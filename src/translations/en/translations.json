@@ -1,0 +1,114 @@
+{
+  "budget": {
+    "add": {
+      "form": {
+        "awal_periode": "First Period",
+        "jumlah_periode": "Number Period",
+        "nama_anggaran": "Budget Name",
+        "periode_sebelumnnya": "Previous Period"
+      },
+      "title": "Budget Information"
+    },
+    "btn_add": "Add New Budget",
+    "button": "Profit & Loss Budget",
+    "form": {
+      "first_period": "First Period",
+      "interval": "Interval",
+      "number_intervals": "Number of Intervals displayed"
+    },
+    "rincian_anggaran": "Budget Details",
+    "subtitle": "Budget",
+    "tab": {
+      "list_rincian": "List Details",
+      "rincian_terbaru": "Latest Details"
+    },
+    "title": "List Budget"
+  },
+  "button": {
+    "back": "Back",
+    "edit": "Edit",
+    "export": "Export",
+    "filter": "Filter",
+    "save": "Save",
+    "terapkan": "Apply"
+  },
+  "cash_bank": {
+    "box": {
+      "four": "Credit Card Balance (in IDR)",
+      "one": "30 Day Income",
+      "tree": "Cash Balance (in IDR)",
+      "two": "Next 30-Day Expenditures (in IDR)"
+    },
+    "buat_transaksi": "Create Transaction",
+    "button": "Create new Account",
+    "button_transaction": {
+      "one": "Transfer of money",
+      "tree": "Send money",
+      "two": "Receive Money"
+    },
+    "list_account_cash": "List Cash Account",
+    "rekonsilasi": "Reconciliation Settings",
+    "subtitle": "Cash & Bank",
+    "title": "Cash Account"
+  },
+  "dashboard": {
+    "box_menu": {
+      "add_product": "Add new products",
+      "faktur": "Create sales invoices",
+      "faktur_pembelian": "Create a purchase invoice",
+      "laba_rugi": "View the income statement",
+      "pemesanan": "Create a sales order",
+      "pencatatan": "Make expense records"
+    },
+    "title": "What activities do you do?"
+  },
+  "overview_business": {
+    "box_chart": {
+      "arus_kas": "Cash Flow",
+      "best_selling": "Best selling product",
+      "cash": "Cash",
+      "current_assets": "Other Current Assets",
+      "monitor_account": "List of Monitored Accounts",
+      "operating_costs": "Operating costs",
+      "profit_loss": "Profit and loss",
+      "sales_due": "Sales Due",
+      "unpaid_bills": "Unpaid Bills"
+    },
+    "setup_dashboard": "Set up dashboard",
+    "title": "Business Summary"
+  },
+  "report": {
+    "item": {
+      "cash_flow": "Cash flow",
+      "journal": "Journal",
+      "ledger": "Ledger",
+      "profit_loss": "Profit Loss",
+      "sales_tax": "Sales tax",
+      "tax_with": "Withholding tax"
+    },
+    "title": "Report"
+  },
+  "sidebar": {
+    "information": {
+      "budget": "Budget",
+      "dashboard": "Dashboard",
+      "overview_business": "Business Summary",
+      "report": "Report"
+    },
+    "master_data": {
+      "contact": "Contact",
+      "list_account": "List Account",
+      "product": "Product"
+    },
+    "settings": "Settings",
+    "transaction": {
+      "cash_bank": "Cash & Bank",
+      "expenses": "Expenses",
+      "purchase": "Purchase",
+      "sales": "Sales"
+    }
+  },
+  "text_common": {
+    "dashboard": "Dashboard"
+  }
+}

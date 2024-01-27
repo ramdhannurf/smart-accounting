@@ -5,7 +5,7 @@
 @layer base {
   :root {
     --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    --foreground: 240 10% 3.9%;
 
     --card: 0 0% 100%;
     --card-foreground: 222.2 84% 4.9%;
@@ -73,4 +73,59 @@
   body {
     @apply bg-background text-foreground;
   }
+}
+
+html {
+  overflow-y: hidden !important;
+}
+
+.react-datepicker__input-container input {
+  border: 1px solid #e2e8f0;
+  border-radius: 5px;
+  padding: 0.5rem;
+  font-size: 0.875rem; /* 14px */
+line-height: 1.25rem; /* 20px */
+}
+
+.react-datepicker-popper[data-placement^=bottom] .react-datepicker__triangle {
+  display: none;
+}
+
+.react-datepicker__input-container input:focus {
+  outline: none;
+}
+
+.react-datepicker__month {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.react-datepicker__month .react-datepicker__month-text, .react-datepicker__month .react-datepicker__quarter-text {
+  height: 3rem;
+  display: grid !important;
+  place-content: center;
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1; 
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #b5b5c2; 
+}
+
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #8f8f99; 
 }

@@ -1,7 +1,9 @@
 "use client"
 import { ComboBox } from "@/components/ComboBox";
 import { DrawerDialog } from "@/components/Dialog";
+import FileUpload from "@/components/FileUpload";
 import InnerContent from "@/components/InnerContent";
+import Title from "@/components/Title";
 import { DatePicker } from "@/components/date-time";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -16,27 +18,22 @@ import { DotsHorizontalIcon } from "@radix-ui/react-icons";
 import { ChevronRight, MoveRight, Search } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
+import { TagsInput } from "react-tag-input-component";
 
 export default function AcceptCashPage() {
     const [open, setOpen] = useState<boolean>(false);
+    const [selected, setSelected] = useState<Array<string>>([]);
+    const [files, setFiles] = useState<Array<File>>([]);
+
     return (
         <>
             <InnerContent>
                 <div className="mb-20">
-                    <Card className="mb-5">
-                        <CardContent className="py-3">
-                            <div className="flex justify-between">
-                                <div>
-                                    <p className="text-sm text-muted-foreground">Transaksi</p>
-                                    <h1 className="font-semibold text-2xl">Terima Uang</h1>
-                                </div>
-                            </div>
-                        </CardContent>
-                    </Card>
+                    <Title title="Terima Uang" subtitle="Transaksi"></Title>
                     <Card>
                         <CardContent className="py-6">
                             <div className="">
-                                <div className="grid grid-cols-2 gap-4">
+                                <div className="grid 2xl:grid-cols-2 xl:grid-cols-2 md:grid-cols-2 grid-cols-1 gap-4">
                                     <div className="flex gap-5">
                                         <Card className="w-full">
                                             <CardContent className="py-5">
@@ -62,7 +59,7 @@ export default function AcceptCashPage() {
                                     <CardTitle className="pb-3">Pembayaran</CardTitle>
                                     <Separator />
                                 </div>
-                                <div className="grid grid-cols-3 gap-5">
+                                <div className="grid 2xl:grid-cols-3 xl:grid-cols-3 md:grid-cols-3 grid-cols-1 gap-5">
                                     <div className="flex flex-col gap-2">
                                         <Label htmlFor="">Yang Membayar</Label>
                                         <ComboBox select={[]} placeholder="Pilih akun pembayaran" name="akun pembayaran" search="Cari akun pembayaran..." />
@@ -122,7 +119,7 @@ export default function AcceptCashPage() {
                                     </Table>
                                 </div>
                                 <Separator className="my-5" />
-                                <div className="grid grid-cols-2 gap-10">
+                                <div className="grid 2xl:grid-cols-2 xl:grid-cols-2 md:grid-cols-2 grid-cols-1 gap-10">
                                     <div className="flex flex-col gap-5">
                                         <div className="flex flex-col gap-2">
                                             <Label>Memo</Label>
@@ -130,11 +127,19 @@ export default function AcceptCashPage() {
                                         </div>
                                         <div className="flex flex-col gap-2">
                                             <Label>Attachment</Label>
-                                            <Input type="file" />
+                                            <FileUpload files={files} setFiles={setFiles} multiple={true} />
                                         </div>
                                         <div className="flex flex-col gap-2">
                                             <Label>Tag</Label>
-                                            <Input />
+                                            <TagsInput
+                                                value={selected}
+                                                onChange={setSelected}
+                                                placeHolder="enter tag"
+                                                classNames={{
+                                                    input: "!text-sm focus:outline-primary",
+                                                    tag: "!text-sm"
+                                                }}
+                                            />
                                         </div>
                                     </div>
                                     <div className="mt-6">

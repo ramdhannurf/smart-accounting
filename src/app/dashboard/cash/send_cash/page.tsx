@@ -1,7 +1,9 @@
 "use client"
 import { ComboBox } from "@/components/ComboBox";
 import { DrawerDialog } from "@/components/Dialog";
+import FileUpload from "@/components/FileUpload";
 import InnerContent from "@/components/InnerContent";
+import Title from "@/components/Title";
 import { DatePicker } from "@/components/date-time";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -17,30 +19,24 @@ import { DotsHorizontalIcon } from "@radix-ui/react-icons";
 import { ChevronRight, MoveRight, Plus, Search, X } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
+import { TagsInput } from "react-tag-input-component";
 
 export default function SendCashPage() {
     const [open, setOpen] = useState<boolean>(false);
     const [potongan, setPotongan] = useState<boolean>(false);
     const [type_potongan, setTypePotongan] = useState<"rp" | "percentage">("rp");
+    const [selected, setSelected] = useState<Array<string>>([]);
+    const [files, setFiles] = useState<Array<File>>([]);
 
     return (
         <>
             <InnerContent>
                 <div className="mb-20">
-                    <Card className="mb-5">
-                        <CardContent className="py-3">
-                            <div className="flex justify-between">
-                                <div>
-                                    <p className="text-sm text-muted-foreground">Transaksi</p>
-                                    <h1 className="font-semibold text-2xl">Kirim Uang</h1>
-                                </div>
-                            </div>
-                        </CardContent>
-                    </Card>
+                    <Title title="Kirim Uang" subtitle="Transaksi"></Title>
                     <Card>
                         <CardContent className="py-6">
                             <div className="">
-                                <div className="grid grid-cols-2 gap-4">
+                                <div className="grid 2xl:grid-cols-2 xl:grid-cols-2 md:grid-cols-2 grid-cols-1 gap-4">
                                     <div className="flex gap-5">
                                         <Card className="w-full">
                                             <CardContent className="py-5">
@@ -66,7 +62,7 @@ export default function SendCashPage() {
                                     <CardTitle className="pb-3">Pembayaran</CardTitle>
                                     <Separator />
                                 </div>
-                                <div className="grid grid-cols-3 gap-5">
+                                <div className="grid 2xl:grid-cols-3 xl:grid-cols-3 grid-cols-1 gap-5">
                                     <div className="flex flex-col gap-2">
                                         <Label htmlFor="">Penerima</Label>
                                         <ComboBox select={[]} placeholder="Pilih kontak" name="kontak" search="Cari kontak..." />
@@ -82,7 +78,7 @@ export default function SendCashPage() {
                                 </div>
                                 <Separator className="my-5" />
                                 <div className="flex flex-col gap-3">
-                                    <div className="flex justify-between">
+                                    <div className="flex 2xl:flex-nowrap xl:flex-nowrap flex-wrap gap-3 justify-between">
                                         <div>
                                             <RadioGroup defaultValue="akun" orientation="horizontal">
                                                 <div className="flex items-center space-x-2">
@@ -95,7 +91,7 @@ export default function SendCashPage() {
                                                 </div>
                                             </RadioGroup>
                                         </div>
-                                        <div className="flex justify-end gap-4 self-center">
+                                        <div className="flex 2xl:flex-nowrap xl:flex-nowrap flex-wrap justify-end gap-4 self-center">
                                             <div className="flex items-center space-x-2 self-center">
                                                 <Switch id="airplane-mode" />
                                                 <Label htmlFor="airplane-mode">Harga termasuk pajak?</Label>
@@ -140,7 +136,7 @@ export default function SendCashPage() {
                                     </Table>
                                 </div>
                                 <Separator className="my-5" />
-                                <div className="grid grid-cols-2 gap-10">
+                                <div className="grid 2xl:grid-cols-2 xl:grid-cols-2 md:grid-cols-2 grid-cols-1 gap-10">
                                     <div className="flex flex-col gap-5">
                                         <div className="flex flex-col gap-2">
                                             <Label>Memo</Label>
@@ -148,11 +144,19 @@ export default function SendCashPage() {
                                         </div>
                                         <div className="flex flex-col gap-2">
                                             <Label>Attachment</Label>
-                                            <Input type="file" />
+                                            <FileUpload files={files} setFiles={setFiles} multiple={true} />
                                         </div>
                                         <div className="flex flex-col gap-2">
                                             <Label>Tag</Label>
-                                            <Input />
+                                            <TagsInput
+                                                value={selected}
+                                                onChange={setSelected}
+                                                placeHolder="enter tag"
+                                                classNames={{
+                                                    input: "!text-sm focus:outline-primary",
+                                                    tag: "!text-sm"
+                                                }}
+                                            />
                                         </div>
                                     </div>
                                     <div className="mt-6">
@@ -163,7 +167,7 @@ export default function SendCashPage() {
                                                         <p>SubTotal</p>
                                                         <p>Rp. 110.000</p>
                                                     </div>
-                                                    <div className="flex justify-between">
+                                                    <div className="flex 2xl:flex-nowrap xl:flex-nowrap md:flex-nowrap gap-3 flex-wrap justify-between">
                                                         <p className="self-center">Potongan ({type_potongan === "rp" ? "Rp." : "%"})</p>
                                                         {
                                                             potongan ? <div className="flex w-full max-w-sm items-center space-x-2">

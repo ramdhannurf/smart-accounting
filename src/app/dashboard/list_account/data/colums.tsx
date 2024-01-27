@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/hover-card";
 import { Separator } from "@/components/ui/separator";
+import { Lock } from "lucide-react";
 
 export const columns_account = [
     {
@@ -31,7 +32,7 @@ export const columns_account = [
     {
         accessorKey: "number",
         header: ({ column }: any) => (
-            <DataTableColumnHeader column={column} title="Kunci" />
+            <DataTableColumnHeader column={column} title="Kode" />
         ),
     },
     {
@@ -42,12 +43,24 @@ export const columns_account = [
         cell: ({ row }: any) => (
             <HoverCard>
                 <HoverCardTrigger asChild>
-                    <span className="text-primary cursor-pointer underline">{row.getValue("name")}</span>
+                    <div className="flex gap-2">
+                        {
+                            row.original.lock === true ? <Lock size={12} className="self-center" /> : <></>
+                        }
+                        <span className="text-primary cursor-pointer underline">{row.getValue("name")}</span>
+                    </div>
+
                 </HoverCardTrigger>
                 <HoverCardContent>
                     <div className="flex flex-col gap-1">
                         <div>
-                            <h4 className="text-sm font-semibold">{row.getValue("name")}</h4>
+                            <div className="flex gap-2">
+                                {
+                                    row.original.lock === true ? <Lock size={12} className="self-center" /> : <></>
+                                }
+                                <h4 className="text-sm font-semibold">{row.getValue("name")}</h4>
+                            </div>
+
                             <Separator className="my-2" />
                             <p className="text-sm">
                                 Balance: Rp. {row.getValue("balance_amount")}

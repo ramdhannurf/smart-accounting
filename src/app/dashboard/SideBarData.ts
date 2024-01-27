@@ -1,4 +1,8 @@
-import { ActivitySquare, Banknote, BookUser, Box, Coins, Contact, FileText, Home, Landmark, Package, Package2, PercentSquare, Settings, ShoppingBasket, Users, Users2 } from "lucide-react";
+import { useTranslation } from "@/i18n/client";
+import { createTranslationFunction } from "@/i18n/functions";
+import { ActivitySquare, Banknote, BookUser, Box, Coins, Contact, FileText, Home, Landmark, Package, Package2, PercentSquare, Settings, ShoppingBasket, Users, Users2, Wallet } from "lucide-react";
+
+
 
 export const links: any = [
     {
@@ -18,6 +22,12 @@ export const links: any = [
         label: "",
         href: "/dashboard/report",
         icon: FileText,
+    },
+    {
+        title: "Anggaran",
+        label: "",
+        href: "/dashboard/budget",
+        icon: Wallet,
     }
 ]
 
@@ -59,10 +69,10 @@ export const data_master:any = [
         title: "Produk",
         label: "",
         icon: Package,
-       href: "#"
+       href: "/dashboard/product"
     },
     {
-        title: "Akun-Akun",
+        title: "Daftar Akun",
         label: "",
         icon: Users,
        href: "/dashboard/list_account"
@@ -74,6 +84,6 @@ export const settings: any = [
         title: "Settings",
         label: "",
         icon: Settings,
-       href: "#"
+       href: "/dashboard/settings"
     }
 ]

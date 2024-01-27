@@ -1,10 +1,15 @@
+"use client"
 import { ComboBox } from "@/components/ComboBox";
 import InnerContent from "@/components/InnerContent";
+import Title from "@/components/Title";
+import EditSaldoAwal from "@/components/modal/EditSaldoAwal";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
 import Link from "next/link";
+import { useState } from "react";
 
 const kategori: Array<any> = [
     {
@@ -40,28 +45,22 @@ const nama_bank: Array<any> = [
 ]
 
 export default function AddAccount() {
+    const [open, setOpen] = useState<boolean>(false);
+
     return (
         <>
             <InnerContent>
                 <div>
-                    <Card className="mb-5">
-                        <CardContent className="py-3">
-                            <div className="flex justify-between">
-                                <div>
-                                    <p className="text-sm text-muted-foreground">Akun</p>
-                                    <h1 className="font-semibold text-2xl">Buat Akun Baru</h1>
-                                </div>
+                    <Title title="Buat Akun Baru" subtitle="Akun">
 
-                            </div>
-                        </CardContent>
-                    </Card>
+                    </Title>
                     <Card>
                         <CardHeader>
                             <CardTitle>Informasi akun</CardTitle>
                         </CardHeader>
                         <CardContent>
                             <div className="">
-                                <div className="flex flex-col gap-4 w-1/2">
+                                <div className="flex flex-col gap-4 2xl:w-1/2 xl:w-1/2 w-full">
                                     <div>
                                         <Label>Nama</Label>
                                         <Input type="text" />
@@ -86,6 +85,14 @@ export default function AddAccount() {
                                         <Label>Nama Bank</Label>
                                         <ComboBox select={nama_bank} placeholder="Pilih Nama Bank" search="Cari nama bank..." name="nama bank" />
                                     </div>
+                                    <div className="flex justify-between">
+                                        <Label className="self-center">Saldo Awal</Label>
+                                        <p>Rp. 0,00 <small className="text-xs hover:underline text-primary cursor-pointer" style={{ userSelect: "none" }} onClick={() => setOpen(true)}>Edit</small></p>
+                                    </div>
+                                    <div className="flex flex-col gap-2">
+                                        <Label>Deskripsi</Label>
+                                        <Textarea />
+                                    </div>
                                     <div className="flex gap-3 mt-5 justify-end">
                                         <Link href={"/dashboard/cash"}> <Button variant={"outline"}>Cancel</Button></Link>
                                         <Button>Buat Akun</Button>
@@ -97,6 +104,7 @@ export default function AddAccount() {
                     </Card>
                 </div>
             </InnerContent>
+            <EditSaldoAwal open={open} setOpen={setOpen} />
         </>
     )
 }

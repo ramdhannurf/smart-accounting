@@ -1,0 +1,114 @@
+{
+  "budget": {
+    "add": {
+      "form": {
+        "awal_periode": "Awal Periode",
+        "jumlah_periode": "Jumlah Periode",
+        "nama_anggaran": "Nama Anggaran",
+        "periode_sebelumnnya": "Periode Sebelumnya"
+      },
+      "title": "Informasi Anggaran"
+    },
+    "btn_add": "Tambah Anggaran Baru",
+    "button": "Anggaran Laba & Rugi",
+    "form": {
+      "first_period": "Awal Periode",
+      "interval": "Interval",
+      "number_intervals": "Jumlah Interval ditampilkan"
+    },
+    "rincian_anggaran": "Rincian Anggaran",
+    "subtitle": "Anggaran",
+    "tab": {
+      "list_rincian": "Daftar Rincian",
+      "rincian_terbaru": "Rincian Terbaru"
+    },
+    "title": "Daftar Anggaran"
+  },
+  "button": {
+    "back": "Kembali",
+    "edit": "Edit",
+    "export": "Ekspor",
+    "filter": "Filter",
+    "save": "Simpan",
+    "terapkan": "Terapkan"
+  },
+  "cash_bank": {
+    "box": {
+      "four": "Saldo Kartu Kredit (dalam IDR)",
+      "one": "Pemasukan 30 Hari",
+      "tree": "Saldo Kas (dalam IDR)",
+      "two": "Pengeluaran 30-Hari Mendatang (dalam IDR)"
+    },
+    "buat_transaksi": "Buat Transaksi",
+    "button": "Buat Akun Baru",
+    "button_transaction": {
+      "one": "Transfer Uang",
+      "tree": "Kirim Uang",
+      "two": "Terima Uang"
+    },
+    "list_account_cash": "Daftar Akun Kas",
+    "rekonsilasi": "Pengaturan Rekonsiliasi",
+    "subtitle": "Kas & Bank",
+    "title": "Akun Kas"
+  },
+  "dashboard": {
+    "box_menu": {
+      "add_product": "Tambah produk baru",
+      "faktur": "Buat faktur penjualan",
+      "faktur_pembelian": "Buat faktur pembelian",
+      "laba_rugi": "Lihat laporan laba rugi",
+      "pemesanan": "Buat pemesanan penjualan",
+      "pencatatan": "Buat pencatatan biaya"
+    },
+    "title": "Aktivitas apa yang Anda lakukan?"
+  },
+  "overview_business": {
+    "box_chart": {
+      "arus_kas": "Arus Kas",
+      "best_selling": "Produk terlaris",
+      "cash": "Kas",
+      "current_assets": "Aset Lancar Lainnya",
+      "monitor_account": "Daftar Akun Terpantau",
+      "operating_costs": "Biaya Operasional",
+      "profit_loss": "Laba Rugi",
+      "sales_due": "Penjualan Terhutang",
+      "unpaid_bills": "Tagihan belum Dibayar"
+    },
+    "setup_dashboard": "Atur Dasbor",
+    "title": "Ringkasan Bisnis"
+  },
+  "report": {
+    "item": {
+      "cash_flow": "Arus kas",
+      "journal": "Jurnal",
+      "ledger": "Buku besar",
+      "profit_loss": "Laba Rugi",
+      "sales_tax": "Pajak penjualan",
+      "tax_with": "Pajak pemotongan"
+    },
+    "title": "Laporan"
+  },
+  "sidebar": {
+    "information": {
+      "budget": "Anggaran",
+      "dashboard": "Dasbor",
+      "overview_business": "Ringkasan Bisnis",
+      "report": "Laporan"
+    },
+    "master_data": {
+      "contact": "Kontak",
+      "list_account": "Daftar Akun",
+      "product": "Produk"
+    },
+    "settings": "Pengaturan",
+    "transaction": {
+      "cash_bank": "Kas & Bank",
+      "expenses": "Biaya",
+      "purchase": "Pembelian",
+      "sales": "Penjualan"
+    }
+  },
+  "text_common": {
+    "dashboard": "Dasbor"
+  }
+}

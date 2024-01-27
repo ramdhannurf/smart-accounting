@@ -47,14 +47,14 @@ import {
     SelectValue,
 } from "./ui/select"
 import Link from "next/link"
-import { Lock } from "lucide-react"
+import { List, Lock, Rows3 } from "lucide-react"
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import { DrawerDialog } from "@/components/Dialog";
 import { PinInput } from 'react-input-pin-code';
 import { Alert, AlertDescription } from "./ui/alert"
 import { toast } from "sonner"
 
-const groups = [
+const groups: any = [
     {
         label: "Akun Personal",
         teams: [
@@ -81,16 +81,12 @@ const groups = [
     },
 ]
 
-type Team = (typeof groups)[number]["teams"][number]
 
-type PopoverTriggerProps = React.ComponentPropsWithoutRef<typeof PopoverTrigger>
 
-interface TeamSwitcherProps extends PopoverTriggerProps { }
-
-export default function TeamSwitcher({ className }: TeamSwitcherProps) {
+export default function TeamSwitcher({ className }: any) {
     const [open, setOpen] = React.useState(false)
     const [showNewTeamDialog, setShowNewTeamDialog] = React.useState(false)
-    const [selectedTeam, setSelectedTeam] = React.useState<Team>(
+    const [selectedTeam, setSelectedTeam] = React.useState<any>(
         groups[0].teams[0]
     )
 
@@ -113,7 +109,7 @@ export default function TeamSwitcher({ className }: TeamSwitcherProps) {
                             role="combobox"
                             aria-expanded={open}
                             aria-label="Select a team"
-                            className={cn("w-[200px] justify-between", className)}
+                            className={cn("2xl:w-[200px] xl:w-[200px] md:w-[200px] w-fit justify-between", className)}
                         >
                             <Avatar className="mr-2 h-5 w-5">
                                 <AvatarImage
@@ -123,7 +119,7 @@ export default function TeamSwitcher({ className }: TeamSwitcherProps) {
                                 />
                                 <AvatarFallback>SC</AvatarFallback>
                             </Avatar>
-                            {selectedTeam.label}
+                            <span className="hidden 2xl:block xl:block md:block">{selectedTeam.label}</span>
                             <CaretSortIcon className="ml-auto h-4 w-4 shrink-0 opacity-50" />
                         </Button>
                     </PopoverTrigger>
@@ -132,9 +128,9 @@ export default function TeamSwitcher({ className }: TeamSwitcherProps) {
                             <CommandList>
                                 <CommandInput placeholder="Cari perusahaan..." />
                                 <CommandEmpty>No team found.</CommandEmpty>
-                                {groups.map((group) => (
+                                {groups.map((group: any) => (
                                     <CommandGroup key={group.label} heading={group.label}>
-                                        {group.teams.map((team) => (
+                                        {group.teams.map((team: any) => (
                                             <CommandItem
                                                 key={team.value}
                                                 onSelect={() => {
@@ -154,14 +150,14 @@ export default function TeamSwitcher({ className }: TeamSwitcherProps) {
                                                     />
                                                     <AvatarFallback>SC</AvatarFallback>
                                                 </Avatar>
-                                                <div className="flex gap-1 flex-wrap">
+                                                <div className="flex gap-1 flex-wrap ">
                                                     <span className="self-center">{team.label}</span>
                                                     {
                                                         team.lock && <Lock width={14} className="text-muted-foreground" />
                                                     }
                                                 </div>
                                                 {
-                                                    selectedTeam.value === team.value ? <p className="ml-auto text-xs text-muted-foreground">(Active)</p> : ""
+                                                    selectedTeam.value === team.value ? <p className="ml-auto text-xs text-muted-foreground ">(Active)</p> : ""
                                                 }
                                                 {/* // <CheckIcon
                                                 //     className={cn(
@@ -187,7 +183,7 @@ export default function TeamSwitcher({ className }: TeamSwitcherProps) {
                                             }}
                                         >
                                             <Link href={"/dashboard/company"} className="flex">
-                                                <PlusCircledIcon className="mr-2 h-5 w-5" />
+                                                <List className="mr-2 h-5 w-5" />
                                                 List Perusahaan
                                             </Link>
                                         </CommandItem>

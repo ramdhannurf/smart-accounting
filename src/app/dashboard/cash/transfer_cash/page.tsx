@@ -1,5 +1,8 @@
+"use client"
 import { ComboBox } from "@/components/ComboBox";
+import FileUpload from "@/components/FileUpload";
 import InnerContent from "@/components/InnerContent";
+import Title from "@/components/Title";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -8,26 +11,22 @@ import { Separator } from "@/components/ui/separator";
 import { Textarea } from "@/components/ui/textarea";
 import { ChevronRight, MoveRight, Search } from "lucide-react";
 import Link from "next/link";
+import { useState } from "react";
+import { TagsInput } from "react-tag-input-component";
 
 export default function TransferCash() {
+    const [selected, setSelected] = useState<Array<string>>([]);
+    const [files, setFiles] = useState<Array<File>>([]);
+
     return (
         <>
             <InnerContent>
                 <div>
-                    <Card className="mb-5">
-                        <CardContent className="py-3">
-                            <div className="flex justify-between">
-                                <div>
-                                    <p className="text-sm text-muted-foreground">Transaksi</p>
-                                    <h1 className="font-semibold text-2xl">Transfer Uang</h1>
-                                </div>
-                            </div>
-                        </CardContent>
-                    </Card>
+                    <Title title="Transfer Uang" subtitle="Transaksi"></Title>
                     <Card>
                         <CardContent className="py-6">
                             <div className="">
-                                <div className="grid grid-cols-3 gap-4">
+                                <div className="grid 2xl:grid-cols-3 xl:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-4">
                                     <div className="flex gap-5">
                                         <Card className="w-full">
                                             <CardContent className="py-5">
@@ -37,7 +36,7 @@ export default function TransferCash() {
                                                 </div>
                                             </CardContent>
                                         </Card>
-                                        <div className="self-center">
+                                        <div className="self-center hidden 2xl:block xl:block">
                                             <MoveRight />
                                         </div>
                                     </div>
@@ -72,7 +71,7 @@ export default function TransferCash() {
                                     <CardTitle className="pb-3">Informasi Tambahan</CardTitle>
                                     <Separator />
                                 </div>
-                                <div className="flex flex-col gap-5">
+                                <div className="flex flex-col gap-5 2xl:w-1/2 xl:w-1/2 w-full">
                                     <div className="flex flex-col gap-2">
                                         <Label>No. Transaksi</Label>
                                         <Input />
@@ -87,11 +86,19 @@ export default function TransferCash() {
                                     </div>
                                     <div className="flex flex-col gap-2">
                                         <Label>Attachment</Label>
-                                        <Input type="file" />
+                                        <FileUpload files={files} setFiles={setFiles} multiple={true} />
                                     </div>
                                     <div className="flex flex-col gap-2">
                                         <Label>Tag</Label>
-                                        <Input />
+                                        <TagsInput
+                                            value={selected}
+                                            onChange={setSelected}
+                                            placeHolder="enter tag"
+                                            classNames={{
+                                                input: "!text-sm focus:outline-primary",
+                                                tag: "!text-sm"
+                                            }}
+                                        />
                                     </div>
                                 </div>
                                 <div className="flex gap-3 justify-end mt-5">

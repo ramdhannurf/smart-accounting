@@ -18,11 +18,12 @@ import {
     PopoverTrigger,
 } from "@/components/ui/popover"
 
-export function ComboBox({ select, placeholder, search, name }: { select: Array<{ title: string, value: string }>, placeholder: string, search: string, name: string }) {
+export function ComboBox({ select, placeholder, search, name, disabled = false }: { select: Array<{ title: string, value: string }>, placeholder: string, search: string, name: string, disabled?: boolean }) {
     const [open, setOpen] = React.useState(false)
     const [value, setValue] = React.useState("");
 
     React.useEffect(() => {
+        console.log(value)
         console.log(select.find((framework) => framework.value === value)?.title);
     }, [value]);
 
@@ -34,7 +35,7 @@ export function ComboBox({ select, placeholder, search, name }: { select: Array<
                         variant="outline"
                         role="combobox"
                         aria-expanded={open}
-                        className="w-full justify-between"
+                        className="w-full justify-between" disabled={disabled}
                     >
                         {value
                             ? select.find((framework) => framework.value === value)?.title
@@ -42,11 +43,11 @@ export function ComboBox({ select, placeholder, search, name }: { select: Array<
                         <CaretSortIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                     </Button>
                 </PopoverTrigger>
-                <PopoverContent className="w-full p-0" align="start">
-                    <Command>
+                <PopoverContent className="w-full p-0 !h-max-[300px]" align="start">
+                    <Command className="!h-[300px] ">
                         <CommandInput placeholder={search} className="h-9" />
                         <CommandEmpty>No {name} found.</CommandEmpty>
-                        <CommandGroup>
+                        <CommandGroup className="!overflow-y-auto">
                             {select.map((framework) => (
                                 <CommandItem
                                     key={framework.value}

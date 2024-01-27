@@ -17,6 +17,9 @@ import { DrawerDialog } from "@/components/Dialog";
 import { X } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import Title from "@/components/Title";
+import { TagsInput } from "react-tag-input-component";
+import FileUpload from "@/components/FileUpload";
 
 export default function AddSales({ params }: { params: { type: string } }) {
     const [open, setOpen] = useState<boolean>(false);
@@ -24,6 +27,9 @@ export default function AddSales({ params }: { params: { type: string } }) {
     const [type_potongan, setTypePotongan] = useState<"rp" | "percentage">("rp");
     const router = useRouter();
     const [title, setTitle] = useState<string>("");
+
+    const [selected, setSelected] = useState<Array<string>>([]);
+    const [files, setFiles] = useState<Array<File>>([]);
 
     useEffect(() => {
         if (params.type === "sales_billing") {
@@ -41,24 +47,12 @@ export default function AddSales({ params }: { params: { type: string } }) {
         <>
             <InnerContent>
                 <div className="mb-20">
-                    <Card className="mb-5">
-                        <CardContent className="py-3">
-                            <div className="flex justify-between">
-                                <div>
-                                    <p className="text-sm text-muted-foreground">Penjualan</p>
-                                    <h1 className="font-semibold text-2xl">Buat {title}</h1>
-                                </div>
-                                <div className="flex gap-3 self-center">
-
-                                </div>
-                            </div>
-                        </CardContent>
-                    </Card>
+                    <Title title={`Buat ${title}`} subtitle="Penjualan"></Title>
                     <Card>
                         <CardContent className="py-5">
                             <div className="flex flex-col gap-5">
-                                <div className="flex justify-between">
-                                    <div className="grid grid-cols-2 gap-3">
+                                <div className="flex 2xl:flex-nowrap xl:flex-nowrap flex-wrap gap-5 justify-between">
+                                    <div className="grid 2xl:grid-cols-2 xl:grid-cols-2 md:grid-cols-2 grid-cols-1 gap-3">
                                         <div className="flex flex-col gap-2">
                                             <Label>Pelanggan <span className="text-destructive-foreground">*</span></Label>
                                             <ComboBox select={[]} placeholder="Pilih kontak" search="Cari kontak..." name="kontak" />
@@ -73,7 +67,7 @@ export default function AddSales({ params }: { params: { type: string } }) {
                                     </div>
                                 </div>
                                 <Separator className="my-3" />
-                                <div className="grid grid-cols-4 gap-5">
+                                <div className="grid 2xl:grid-cols-4 xl:grid-cols-4 md:grid-cols-2 grid-cols-1 gap-5">
                                     <div className="flex flex-col gap-2">
                                         <Label>Alamat penagih</Label>
                                         <Textarea />
@@ -111,62 +105,72 @@ export default function AddSales({ params }: { params: { type: string } }) {
                                     </div>
                                     <div className="flex flex-col gap-2">
                                         <Label>Tag</Label>
-                                        <Input />
+                                        <TagsInput
+                                            value={selected}
+                                            onChange={setSelected}
+                                            placeHolder="enter tag"
+                                            classNames={{
+                                                input: "!text-sm focus:outline-primary",
+                                                tag: "!text-sm"
+                                            }}
+                                        />
                                     </div>
                                 </div>
                                 <div className="flex flex-col gap-3">
-                                    <div className="flex justify-end gap-4">
+                                    <div className="flex 2xl:flex-nowrap xl:flex-nowrap flex-wrap justify-end gap-4">
                                         <div className="flex items-center space-x-2">
                                             <Switch id="airplane-mode" />
                                             <Label htmlFor="airplane-mode">Harga termasuk pajak?</Label>
                                         </div>
                                         <Button onClick={() => setOpen(true)}>Tambah Data</Button>
                                     </div>
-                                    <Table>
-                                        <TableHeader className="bg-primary">
-                                            <TableRow>
-                                                <TableHead className="text-white">Produk</TableHead>
-                                                <TableHead className="text-white">Deskripsi</TableHead>
-                                                <TableHead className="text-white">Kuantitas</TableHead>
-                                                <TableHead className="text-white">Unit</TableHead>
-                                                <TableHead className="text-white">Harga satuan</TableHead>
-                                                <TableHead className="text-white">Diskon</TableHead>
-                                                <TableHead className="text-white">Pajak</TableHead>
-                                                <TableHead className="text-white">Jumlah</TableHead>
-                                                <TableHead className="text-white"></TableHead>
-                                            </TableRow>
-                                        </TableHeader>
-                                        <TableBody>
-                                            <TableRow>
-                                                <TableCell>Alicia Koch</TableCell>
-                                                <TableCell>Paid</TableCell>
-                                                <TableCell>PPN</TableCell>
-                                                <TableCell>Rp. 100.000</TableCell>
-                                                <TableCell>Rp. 100.000</TableCell>
-                                                <TableCell>Rp. 100.000</TableCell>
-                                                <TableCell>Rp. 100.000</TableCell>
-                                                <TableCell>Rp. 100.000</TableCell>
-                                                <TableCell>
-                                                    <DropdownMenu>
-                                                        <DropdownMenuTrigger asChild>
-                                                            <Button variant="ghost" className="h-8 w-8 p-0">
-                                                                <span className="sr-only">Open menu</span>
-                                                                <DotsHorizontalIcon className="h-4 w-4" />
-                                                            </Button>
-                                                        </DropdownMenuTrigger>
-                                                        <DropdownMenuContent>
-                                                            <DropdownMenuLabel>Aksi</DropdownMenuLabel>
-                                                            <DropdownMenuSeparator />
-                                                            <DropdownMenuItem>Edit</DropdownMenuItem>
-                                                            <DropdownMenuItem>Hapus</DropdownMenuItem>
-                                                        </DropdownMenuContent>
-                                                    </DropdownMenu>
-                                                </TableCell>
-                                            </TableRow>
-                                        </TableBody>
-                                    </Table>
+                                    <div className="overflow-y-auto">
+                                        <Table>
+                                            <TableHeader className="bg-primary">
+                                                <TableRow>
+                                                    <TableHead className="text-white">Produk</TableHead>
+                                                    <TableHead className="text-white">Deskripsi</TableHead>
+                                                    <TableHead className="text-white">Kuantitas</TableHead>
+                                                    <TableHead className="text-white">Unit</TableHead>
+                                                    <TableHead className="text-white">Harga satuan</TableHead>
+                                                    <TableHead className="text-white">Diskon</TableHead>
+                                                    <TableHead className="text-white">Pajak</TableHead>
+                                                    <TableHead className="text-white">Jumlah</TableHead>
+                                                    <TableHead className="text-white"></TableHead>
+                                                </TableRow>
+                                            </TableHeader>
+                                            <TableBody>
+                                                <TableRow>
+                                                    <TableCell>Alicia Koch</TableCell>
+                                                    <TableCell>Paid</TableCell>
+                                                    <TableCell>PPN</TableCell>
+                                                    <TableCell>Rp. 100.000</TableCell>
+                                                    <TableCell>Rp. 100.000</TableCell>
+                                                    <TableCell>Rp. 100.000</TableCell>
+                                                    <TableCell>Rp. 100.000</TableCell>
+                                                    <TableCell>Rp. 100.000</TableCell>
+                                                    <TableCell>
+                                                        <DropdownMenu>
+                                                            <DropdownMenuTrigger asChild>
+                                                                <Button variant="ghost" className="h-8 w-8 p-0">
+                                                                    <span className="sr-only">Open menu</span>
+                                                                    <DotsHorizontalIcon className="h-4 w-4" />
+                                                                </Button>
+                                                            </DropdownMenuTrigger>
+                                                            <DropdownMenuContent>
+                                                                <DropdownMenuLabel>Aksi</DropdownMenuLabel>
+                                                                <DropdownMenuSeparator />
+                                                                <DropdownMenuItem>Edit</DropdownMenuItem>
+                                                                <DropdownMenuItem>Hapus</DropdownMenuItem>
+                                                            </DropdownMenuContent>
+                                                        </DropdownMenu>
+                                                    </TableCell>
+                                                </TableRow>
+                                            </TableBody>
+                                        </Table>
+                                    </div>
                                 </div>
-                                <div className="grid grid-cols-2 gap-20 mt-6">
+                                <div className="grid 2xl:grid-cols-2 xl:grid-cols-2 md:grid-cols-2 grid-cols-1 gap-20 mt-6">
                                     <div className="flex flex-col gap-5">
                                         <div className="flex flex-col gap-2">
                                             <Label>Pesan</Label>
@@ -178,8 +182,8 @@ export default function AddSales({ params }: { params: { type: string } }) {
                                         </div>
                                         <div className="flex flex-col gap-2">
                                             <Label>Lampiran</Label>
-                                            <Input type="file" />
-                                            <small>File dapat berupa Excel, Word, PDF, JPG, PNG, atau ZIP (maksimum 5 file dan 10 MB per file).</small>
+                                            <FileUpload files={files} setFiles={setFiles} multiple={true} />
+                                            <small className="text-xs">File dapat berupa Excel, Word, PDF, JPG, PNG, atau ZIP (maksimum 5 file dan 10 MB per file).</small>
                                         </div>
                                     </div>
                                     <Card className="mt-6">
@@ -208,7 +212,7 @@ export default function AddSales({ params }: { params: { type: string } }) {
                                                         <h3 className="font-bold text-md">Total</h3>
                                                         <h3 className="font-bold text-md">Rp. 0,00</h3>
                                                     </div>
-                                                    <div className="flex justify-between">
+                                                    <div className="flex 2xl:flex-nowrap xl:flex-nowrap flex-wrap gap-3 justify-between">
                                                         <p className="self-center">Potongan ({type_potongan === "rp" ? "Rp." : "%"})</p>
                                                         {
                                                             potongan ? <div className="flex flex-col gap-3">
