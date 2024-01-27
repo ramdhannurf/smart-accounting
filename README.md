@@ -1,3 +1,6 @@
+NOTE:
+pertama tama pastikan sudah terinstall Node JS versi > 16.x. jika sudah tinggal ikuti langkah-langkah dibawah
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
